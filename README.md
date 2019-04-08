@@ -13,9 +13,6 @@ npm install --save vl-ui-textarea
 npm run demo
 ```
 
-## Kanttekening
-
-
 ## Credits
 Zie de lijst van [ontwikkelaars](https://github.com/milieuinfo/webcomponent-vl-ui-textarea/graphs/contributors) die meegewerkt hebben aan de webcomponent.
 
