@@ -23,7 +23,7 @@
     "vl-ui-core": "1.1.0"
   },
   "devDependencies": {
-    "@govflanders/vl-ui-textarea": "^3.7.2",
+    "@govflanders/vl-ui-textarea": "3.7.2",
     "http-server": "0.11.1",
     "np": "3.0.4",
     "replace": "1.0.0",
