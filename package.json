@@ -1,7 +1,7 @@
 {
   "name": "vl-ui-textarea",
   "version": "0.0.0",
-  "description": "Use the text area component to add a text field that can contain multiple lines of text.",
+  "description": "Gebruik de vl-ui-textarea component om een tekstveld met meerdere lijnen te hebben.",
   "main": "vl-textarea.js",
   "scripts": {
     "prepare": "npm run prepare:util",
