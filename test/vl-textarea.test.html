@@ -27,7 +27,7 @@
 
     test('krijgt de juiste class wanneer het textarea een attribuut bevat', () => {
       const label = fixture('vl-textarea-fixture');
-      ['error', 'disabled', 'block'].forEach((attribuut) => {
+      ['error', 'disabled', 'block', 'success'].forEach((attribuut) => {
         assert.isFalse(label.classList.contains('vl-textarea--' + attribuut));
         label.setAttribute(attribuut, '');
         assert.isTrue(label.classList.contains('vl-textarea--' + attribuut));
