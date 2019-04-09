@@ -8,7 +8,7 @@ import { NativeVlElement } from '/node_modules/vl-ui-core/vl-core.js';
 export class VlTextarea extends NativeVlElement(HTMLTextAreaElement) {
 
   static get _observedClassAttributes() {
-    return ['disabled', 'block', 'error', 'success'];
+    return ['disabled', 'block', 'error', 'success', 'focus'];
   }
 
   connectedCallback() {
