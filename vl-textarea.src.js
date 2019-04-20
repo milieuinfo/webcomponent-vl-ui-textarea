@@ -9,8 +9,8 @@ import { NativeVlElement } from '/node_modules/vl-ui-core/vl-core.js';
  * 
  * @property {boolean} block - Attribuut wordt gebruikt om ervoor te zorgen dat de textarea getoond wordt als een block element en bijgevolg de breedte van de parent zal aannemen.
  * @property {boolean} error - Attribuut wordt gebruikt om aan te duiden dat de textarea verplicht is of ongeldige tekst bevat.
- * @property {boolean} success - Attribuut wordt gebruikt om aan te duiden dat de textarea correct werd ingevuld. | { boolean }
- * @property {boolean} disabled - Attribuut wordt gebruikt om te voorkomen dat de gebruiker tekst in de textarea kan ingeven. | { boolean }
+ * @property {boolean} success - Attribuut wordt gebruikt om aan te duiden dat de textarea correct werd ingevuld.
+ * @property {boolean} disabled - Attribuut wordt gebruikt om te voorkomen dat de gebruiker tekst in de textarea kan ingeven.
  * @property {boolean} focus - Attribuut wordt gebruikt om de textarea focus te geven.
  */
 export class VlTextarea extends NativeVlElement(HTMLTextAreaElement) {
