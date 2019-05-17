@@ -17,8 +17,13 @@
   </template>
 </test-fixture>
 
-<script>
+<script type="module">
   suite('<vl-textarea>', () => {
+    suiteSetup((done) => {
+      VlRegisterElement(() => {
+        done();
+      });
+    });
 
     test('heeft de vl-textarea class', () => {
       const label = fixture('vl-textarea-fixture');
