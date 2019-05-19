@@ -17,16 +17,8 @@
   </template>
 </test-fixture>
 
-<script type="module">
-  import { VlRegisterElement } from '/node_modules/vl-ui-core/vl-core.js';
-
+<script>
   suite('<vl-textarea>', () => {
-    suiteSetup((done) => {
-      VlRegisterElement(() => {
-        done();
-      });
-    });
-
     test('heeft de vl-textarea class', () => {
       const label = fixture('vl-textarea-fixture');
       assert.isTrue(label.classList.contains('vl-textarea'));

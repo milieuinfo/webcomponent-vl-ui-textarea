@@ -1,4 +1,4 @@
-import { VlRegisterElement, NativeVlElement } from '/node_modules/vl-ui-core/vl-core.js';
+import { NativeVlElement } from '/node_modules/vl-ui-core/vl-core.js';
 
 /**
  * VlTextArea
@@ -32,6 +32,4 @@ export class VlTextarea extends NativeVlElement(HTMLTextAreaElement) {
   }
 }
 
-VlRegisterElement(() => {
-  customElements.define('vl-textarea', VlTextarea, {extends: 'textarea'});
-});
+customElements.define('vl-textarea', VlTextarea, {extends: 'textarea'});
