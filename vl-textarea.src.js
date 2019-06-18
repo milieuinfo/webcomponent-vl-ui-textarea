@@ -5,7 +5,7 @@ import { NativeVlElement } from '/node_modules/vl-ui-core/vl-core.js';
  * @class
  * @classdesc De vl-ui-textarea definieert een rechthoekig invoervak in een formulier, waarin de gebruiker over meerdere regels tekst kan invoeren. <a href="demo/vl-textarea.html">Demo</a>.
  * 
- * @extends VlElement
+ * @extends NativeVlElement
  * 
  * @property {boolean} block - Attribuut wordt gebruikt om ervoor te zorgen dat de textarea getoond wordt als een block element en bijgevolg de breedte van de parent zal aannemen.
  * @property {boolean} error - Attribuut wordt gebruikt om aan te duiden dat de textarea verplicht is of ongeldige tekst bevat.
