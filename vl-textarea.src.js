@@ -14,7 +14,7 @@ import { NativeVlElement, define } from '/node_modules/vl-ui-core/vl-core.src.js
  * @property {boolean} focus - Attribuut wordt gebruikt om de textarea focus te geven.
  */
 export class VlTextarea extends NativeVlElement(HTMLTextAreaElement) {
-
+  //Uitzondering: In markup, gebruikt als 'disabled' in plaats van 'data-vl-disabled'
   static get _observedClassAttributes() {
     return ['disabled', 'block', 'error', 'success', 'focus'];
   }
