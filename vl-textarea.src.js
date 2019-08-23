@@ -13,7 +13,8 @@ import { NativeVlElement, define } from '/node_modules/vl-ui-core/vl-core.src.js
  * @property {boolean} disabled - Attribuut wordt gebruikt om te voorkomen dat de gebruiker tekst in de textarea kan ingeven.
  * @property {boolean} focus - Attribuut wordt gebruikt om de textarea focus te geven.
  * 
- * @version <a href="http://www.github.com/milieuinfo/webcomponent-vl-ui-textarea/releases/latest">Release notes</a>
+ * @see {@link https://www.github.com/milieuinfo/webcomponent-vl-ui-textarea/releases/latest|Release notes}
+ * @see {@link https://www.github.com/milieuinfo/webcomponent-vl-ui-textarea/issues|Issues}
  */
 export class VlTextarea extends NativeVlElement(HTMLTextAreaElement) {
 
