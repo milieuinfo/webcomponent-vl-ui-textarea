@@ -4,7 +4,7 @@
   "description": "Gebruik de vl-ui-textarea component om een tekstveld met meerdere lijnen te hebben.",
   "main": "vl-textarea.js",
   "scripts": {
-    "prepare": "npm run prepare:util",
+    "prepare": "npm update --dev vl-ui-util && npm run prepare:util",
     "prepare:util": "npm explore vl-ui-util -- npm run util",
     "test": "wct -l chrome,firefox --npm",
     "release": "np",
