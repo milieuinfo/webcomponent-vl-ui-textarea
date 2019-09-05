@@ -3,7 +3,7 @@ import { NativeVlElement, define } from '/node_modules/vl-ui-core/vl-core.src.js
 /**
  * VlTextArea
  * @class
- * @classdesc De vl-ui-textarea definieert een rechthoekig invoervak in een formulier, waarin de gebruiker over meerdere regels tekst kan invoeren. <a href="demo/vl-textarea.html">Demo</a>.
+ * @classdesc De vl-ui-textarea definieert een rechthoekig invoervak in een formulier, waarin de gebruiker over meerdere regels tekst kan invoeren.
  * 
  * @extends NativeVlElement
  * 
@@ -15,6 +15,7 @@ import { NativeVlElement, define } from '/node_modules/vl-ui-core/vl-core.src.js
  * 
  * @see {@link https://www.github.com/milieuinfo/webcomponent-vl-ui-textarea/releases/latest|Release notes}
  * @see {@link https://www.github.com/milieuinfo/webcomponent-vl-ui-textarea/issues|Issues}
+ * @see {@link https://webcomponenten.omgeving.vlaanderen.be/demo/vl-ui-textarea.html|Demo}
  */
 export class VlTextarea extends NativeVlElement(HTMLTextAreaElement) {
 
