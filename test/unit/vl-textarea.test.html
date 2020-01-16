@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="nl">
+
+<head>
+  <meta charset="utf-8">
+  <script src="../../@webcomponents/webcomponentsjs/webcomponents-lite.js"></script>
+  <script src="../../web-component-tester/browser.js"></script>
+
+  <script type="module" src="../vl-textarea.src.js"></script>
+  <title>vl-textarea test</title>
+</head>
+
+<body>
+<test-fixture id="vl-textarea-fixture">
+  <template>
+    <textarea id="textarea" is="vl-textarea"></textarea>
+  </template>
+</test-fixture>
+
+<script>
+  suite('<vl-textarea>', () => {
+    test('heeft de vl-textarea class', () => {
+      const label = fixture('vl-textarea-fixture');
+      assert.isTrue(label.classList.contains('vl-textarea'));
+    });
+
+    test('krijgt de juiste class wanneer het textarea een attribuut bevat', () => {
+      const label = fixture('vl-textarea-fixture');
+      ['error', 'disabled', 'block', 'success', 'focus'].forEach((attribuut) => {
+        assert.isFalse(label.classList.contains('vl-textarea--' + attribuut));
+        label.setAttribute(attribuut, '');
+        assert.isTrue(label.classList.contains('vl-textarea--' + attribuut));
+        label.removeAttribute(attribuut);
+        assert.isFalse(label.classList.contains('vl-textarea--' + attribuut));
+      });
+    });
+
+  });
+</script>
+</body>
+
+</html>
