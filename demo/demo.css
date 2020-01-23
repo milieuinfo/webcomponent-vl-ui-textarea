@@ -3,15 +3,18 @@
 body {
   padding: 2.5em !important;
   max-width: 1280px !important;
-  margin: auto !important; }
-  body > div:not(:first-child):not([class]) {
-    margin-top: 5rem; }
+  margin: auto !important;
+  background-color: #ffffff;
+}
+body > div:not(:first-child):not([class]) {
+  margin-top: 5rem;
+}
 
 .demo {
   border: 1px dotted lightgray;
   margin-bottom: 15px; }
 
-pre {
+body > div > pre {
   border: 1px dotted lightgray !important;
   white-space: pre-wrap !important;
   background: #f7f7f8 !important;
@@ -19,13 +22,15 @@ pre {
   padding-left: 0px !important;
   padding-bottom: 0px !important; }
 
-code {
-  white-space: pre !important; }
+body > div > pre > code {
+  white-space: pre !important;
+}
 
-h1:not([is='vl-h1']) {
-  font-size: x-large !important; }
+body > h1:not([is=vl-h1]) {
+  font-size: x-large !important;
+}
 
-h2:not([is='vl-h2']) {
+body > div > h2:not([is=vl-h2]) {
   font-size: large !important;
   margin-top: 20px !important; }
 
