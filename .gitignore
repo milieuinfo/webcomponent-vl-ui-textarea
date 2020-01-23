@@ -2,4 +2,4 @@
 *.css.map
 .idea/
 node_modules/
-vl-textarea.js
+.vscode
