@@ -1,5 +1,5 @@
 
-const { assert, driver } = require('vl-ui-core').Test;
+const { assert, driver } = require('vl-ui-core').Test.Setup;
 const VlTextareaPage = require('./pages/vl-textarea.page');
 
 describe('vl-textarea', async () => {
@@ -9,5 +9,7 @@ describe('vl-textarea', async () => {
         return vlTextareaPage.load();
     });
 
-   
+    after(async () => { 
+        return driver.quit();
+    });
 });

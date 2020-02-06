@@ -1,3 +1,5 @@
 module.exports = { 
-    'VlTextarea': require('./test/e2e/components/vl-textarea')
+	Test: {
+    	VlTextarea: require('./test/e2e/components/vl-textarea.js')
+    }
 }
