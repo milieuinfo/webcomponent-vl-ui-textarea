@@ -1,5 +1,5 @@
 const VlTextarea = require('../components/vl-textarea');
-const { Page, Config } = require('vl-ui-core');
+const { Page, Config } = require('vl-ui-core').Test;
 
 class VlTextareaPage extends Page {
     async _getTextarea(selector) {
