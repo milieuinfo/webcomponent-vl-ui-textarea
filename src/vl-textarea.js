@@ -1,4 +1,4 @@
-import { NativeVlElement, define } from '/node_modules/vl-ui-core/vl-core.js';
+import { NativeVlElement, define } from '/node_modules/vl-ui-core/dist/vl-core.js';
 
 /**
  * VlTextArea
