@@ -57,6 +57,12 @@ describe('vl-textarea', async () => {
     	await assert.eventually.isTrue(textarea.isEnabled());
     	const textareaDisabled = await vlTextareaPage.getTextareaDisabled();
     	await assert.eventually.isFalse(textareaDisabled.isEnabled());
+    	try {
+    		await textareaDisabled.setValue("tekst");
+    		assert.isTrue(false);
+    	} catch (error) {
+    		return Promise.resolve();
+    	}
     });
     
 });
