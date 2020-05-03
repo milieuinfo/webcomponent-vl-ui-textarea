@@ -1,103 +1,47 @@
 <!DOCTYPE html>
 <html lang="nl">
-  <head>
+
+<head>
     <title>vl-ui-textarea voorbeeld</title>
-    <script type="module" src="demo.js"></script>
-    <script type="module" src="/node_modules/@webcomponents/webcomponentsjs/webcomponents-loader.js"></script>
+    <script type="module" src="/node_modules/vl-ui-demo/dist/vl-demo-all.js"></script>
+
     <script type="module" src="/src/vl-textarea.js"></script>
-    <link rel="stylesheet" type="text/css" href="/src/style.css"/>
-  </head>
 
-  <body>
-    <h1>vl-ui-textarea demo</h1>
-    <p>
-      <a href="https://overheid.vlaanderen.be/webuniversum/v3/documentation/forms/vl-ui-textarea/">
-        Meer voorbeelden en documentatie</a>.
-    </p>
+    <link rel="stylesheet" type="text/css" href="/src/style.css" />
+</head>
 
-    <div>
-      <h2>Textarea</h2>
-      <pre>
-        <code class="line-numbers language-markup">
-          &lt;textarea id="textarea" is="vl-textarea" aria-label="textarea" cols="40" rows="4"&gt;
-            foobar
-          &lt;/textarea&gt;
-        </code>
-      </pre>
-      <div class="demo">
-        <textarea id="textarea" is="vl-textarea" aria-label="textarea" cols="40" rows="4">foobar</textarea>
-      </div>
-    </div>
+<body>
+    <vl-demo-page data-vl-webcomponent="vl-textarea"
+        data-vl-link="https://overheid.vlaanderen.be/webuniversum/v3/documentation/forms/vl-ui-textarea">
+        <vl-demo data-vl-title="Textarea">
+            <textarea id="textarea" is="vl-textarea" aria-label="textarea" cols="40" rows="4">foobar</textarea>
+        </vl-demo>
 
-    <div>
-      <h2>Textarea block</h2>
-      <pre>
-        <code class="line-numbers language-markup">
-          &lt;textarea id="textarea-block" is="vl-textarea" aria-label="textarea block" cols="40" rows="4" block&gt;
-            foobar
-          &lt;/textarea&gt;
-        </code>
-      </pre>
-      <div class="demo">
-        <textarea id="textarea-block" is="vl-textarea" aria-label="textarea block" cols="40" rows="4" block>foobar</textarea>
-      </div>
-    </div>
+        <vl-demo data-vl-title="Textarea block">
+            <textarea id="textarea-block" is="vl-textarea" aria-label="textarea block" cols="40" rows="4"
+                block>foobar</textarea>
+        </vl-demo>
 
-    <div>
-      <h2>Textarea error</h2>
-      <pre>
-        <code class="line-numbers language-markup">
-          &lt;textarea id="textarea-error" is="vl-textarea" aria-label="textarea error" cols="40" rows="4" error&gt;
-            foobar
-          &lt;/textarea&gt;
-        </code>
-      </pre>
-      <div class="demo">
-        <textarea id="textarea-error" is="vl-textarea" aria-label="textarea error" cols="40" rows="4" error>foobar</textarea>
-      </div>
-    </div>
+        <vl-demo data-vl-title="Textarea error">
+            <textarea id="textarea-error" is="vl-textarea" aria-label="textarea error" cols="40" rows="4"
+                error>foobar</textarea>
+        </vl-demo>
 
-    <div>
-    <h2>Textarea success</h2>
-    <pre>
-      <code class="line-numbers language-markup">
-        &lt;textarea id="textarea-success" is="vl-textarea" aria-label="textarea success" cols="40" rows="4" success&gt;
-          foobar
-        &lt;/textarea&gt;
-      </code>
-    </pre>
-      <div class="demo">
-        <textarea id="textarea-success" is="vl-textarea" aria-label="textarea success" cols="40" rows="4" success>foobar</textarea>
-      </div>
-    </div>
+        <vl-demo data-vl-title="Textarea success">
+            <textarea id="textarea-success" is="vl-textarea" aria-label="textarea success" cols="40" rows="4"
+                success>foobar</textarea>
+        </vl-demo>
 
-    <div>
-      <h2>Textarea disabled</h2>
-      <pre>
-        <code class="line-numbers language-markup">
-          &lt;textarea id="textarea-disabled" is="vl-textarea" aria-label="textarea disabled" cols="40" rows="4" disabled&gt;
-            foobar
-          &lt;/textarea&gt;
-        </code>
-      </pre>
-      <div class="demo">
-        <textarea id="textarea-disabled" is="vl-textarea" aria-label="textarea disabled" cols="40" rows="4" disabled>foobar</textarea>
-      </div>
-    </div>
+        <vl-demo data-vl-title="Textarea disabled">
+            <textarea id="textarea-disabled" is="vl-textarea" aria-label="textarea disabled" cols="40" rows="4"
+                disabled>foobar</textarea>
+        </vl-demo>
 
-    <div>
-      <h2>Textarea focus</h2>
-      <pre>
-        <code class="line-numbers language-markup">
-          &lt;textarea id="textarea-focus" is="vl-textarea" aria-label="textarea focus" cols="40" rows="4" focus&gt;
-            foobar
-          &lt;/textarea&gt;
-        </code>
-      </pre>
-      <div class="demo">
-        <textarea id="textarea-focus" is="vl-textarea" aria-label="textarea focus" cols="40" rows="4" focus>foobar</textarea>
-      </div>
-    </div>
+        <vl-demo data-vl-title="Textarea focus">
+            <textarea id="textarea-focus" is="vl-textarea" aria-label="textarea focus" cols="40" rows="4"
+                focus>foobar</textarea>
+        </vl-demo>
+    </vl-demo-page>
+</body>
 
-  </body>
 </html>
