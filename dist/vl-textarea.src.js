@@ -1,6 +1,6 @@
 import {nativeVlElement, define} from 'vl-ui-core';
 import {vlLinkToolbar} from 'vl-ui-textarea/dist/vl-tinymce-link-toolbar.src.js';
-import 'tinymce/tinymce.js';
+import 'tinymce/tinymce.min.js';
 
 /**
  * VlTextArea

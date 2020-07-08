@@ -1,9 +1,9 @@
 import {vlElement, define} from '/node_modules/vl-ui-core/dist/vl-core.js';
-import '/node_modules/vl-ui-modal/dist/vl-modal.min.js';
-import '/node_modules/vl-ui-form-grid/dist/vl-form-grid.min.js';
-import '/node_modules/vl-ui-form-message/dist/vl-form-message.min.js';
-import '/node_modules/vl-ui-input-field/dist/vl-input-field.min.js';
-import '/node_modules/vl-ui-button/dist/vl-button.min.js';
+import '/node_modules/vl-ui-modal/dist/vl-modal.js';
+import '/node_modules/vl-ui-form-grid/dist/vl-form-grid.js';
+import '/node_modules/vl-ui-form-message/dist/vl-form-message.js';
+import '/node_modules/vl-ui-input-field/dist/vl-input-field.js';
+import '/node_modules/vl-ui-button/dist/vl-button.js';
 
 export const vlLinkToolbar = {
   icon: 'link',
