@@ -45,7 +45,7 @@ export class VlTextarea extends nativeVlElement(HTMLTextAreaElement) {
       verify_html: false,
       forced_root_block: '',
       body_class: 'vl-typography',
-      toolbar: 'undo redo | bold italic underline strikethrough | vlLink blockquote hr | numlist bullist',
+      toolbar: 'undo redo | bold italic underline strikethrough | h1 h2 h3 h4 h5 h6 | vlLink blockquote hr | numlist bullist',
       plugins: 'autolink hr lists advlist link',
       formats: {
         bold: {inline: 'b'},

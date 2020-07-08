@@ -54,6 +54,7 @@
     "@govflanders/vl-ui-button": "^3.9.2",
     "@govflanders/vl-ui-textarea": "^3.9.1",
     "@govflanders/vl-ui-typography": "^3.9.2",
+    "@govflanders/vl-ui-titles": "^3.9.1",
     "vl-ui-button": "^5.0.5",
     "vl-ui-form-grid": "^3.0.4",
     "vl-ui-form-message": "^5.0.3",

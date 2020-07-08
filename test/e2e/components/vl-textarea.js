@@ -85,6 +85,30 @@ class VlTextarea extends VlElement {
     await this._activateToolbar('Underline');
   }
 
+  async activateH1() {
+    await this._activateH(1);
+  }
+
+  async activateH2() {
+    await this._activateH(2);
+  }
+
+  async activateH3() {
+    await this._activateH(3);
+  }
+
+  async activateH4() {
+    await this._activateH(4);
+  }
+
+  async activateH5() {
+    await this._activateH(5);
+  }
+
+  async activateH6() {
+    await this._activateH(6);
+  }
+
   async activateStrikethrough() {
     await this._activateToolbar('Strikethrough');
   }
@@ -177,6 +201,10 @@ class VlTextarea extends VlElement {
     if (active == 'false') {
       await button.click();
     }
+  }
+
+  async _activateH(number) {
+    await this._activateToolbar(`Heading ${number}`);
   }
 
   async _clickToolbar(type) {

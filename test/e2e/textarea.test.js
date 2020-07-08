@@ -83,20 +83,42 @@ describe('vl-textarea', async () => {
     await assert.eventually.include(textarea.getInnerHTML(), `${text}`);
     await textarea.activateBold();
     await textarea.sendKeys(text);
-    await assert.eventually.include(textarea.getInnerHTML(), `<b>﻿tekst</b>`);
+    await assert.eventually.include(textarea.getInnerHTML(), `<b>﻿tekst</b>`); // nasty tinyMCE irregular whitespace
     await textarea.deactivateBold();
     await textarea.activateItalic();
     await textarea.sendKeys(text);
-    await assert.eventually.include(textarea.getInnerHTML(), `<i>﻿tekst</i>`);
+    await assert.eventually.include(textarea.getInnerHTML(), `<i>﻿tekst</i>`); // nasty tinyMCE irregular whitespace
     await textarea.deactivateItalic();
     await textarea.activateUnderline();
     await textarea.sendKeys(text);
-    await assert.eventually.include(textarea.getInnerHTML(), `<u>﻿tekst</u>`);
+    await assert.eventually.include(textarea.getInnerHTML(), `<u>﻿tekst</u>`); // nasty tinyMCE irregular whitespace
     await textarea.deactivateUnderline();
     await textarea.activateStrikethrough();
     await textarea.sendKeys(text);
-    await assert.eventually.include(textarea.getInnerHTML(), `<strike>﻿tekst</strike>`);
+    await assert.eventually.include(textarea.getInnerHTML(), `<strike>﻿tekst</strike>`); // nasty tinyMCE irregular whitespace
     await textarea.deactivateStrikethrough();
+  });
+
+  it('Als gebruiker kan ik titels toevoegen', async () => {
+    const textarea = await vlTextareaPage.getTextareaRich();
+    await assert.eventually.isNotEmpty(textarea.getValue());
+    await textarea.clear();
+    await assert.eventually.isEmpty(textarea.getValue());
+    const text = 'title';
+    await textarea.sendKeys(text);
+    await assert.eventually.include(textarea.getInnerHTML(), `${text}`);
+    await textarea.activateH1();
+    await assert.eventually.include(textarea.getInnerHTML(), `<h1>${text}</h1>`);
+    await textarea.activateH2();
+    await assert.eventually.include(textarea.getInnerHTML(), `<h2>${text}</h2>`);
+    await textarea.activateH3();
+    await assert.eventually.include(textarea.getInnerHTML(), `<h3>${text}</h3>`);
+    await textarea.activateH4();
+    await assert.eventually.include(textarea.getInnerHTML(), `<h4>${text}</h4>`);
+    await textarea.activateH5();
+    await assert.eventually.include(textarea.getInnerHTML(), `<h5>${text}</h5>`);
+    await textarea.activateH6();
+    await assert.eventually.include(textarea.getInnerHTML(), `<h6>${text}</h6>`);
   });
 
   it('Als gebruiker kan ik een quote tekst toevoegen', async () => {
