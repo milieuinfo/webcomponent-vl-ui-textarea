@@ -7,6 +7,7 @@
   <script src="../../../web-component-tester/browser.js"></script>
 
   <script type="module" src="../../src/vl-textarea.js"></script>
+  <script src="/node_modules/sinon/pkg/sinon.js"></script>
   <title>vl-textarea test</title>
 </head>
 
@@ -19,20 +20,34 @@
 
 <script>
   suite('<vl-textarea>', () => {
+    const sandbox = sinon.createSandbox();
+
+    teardown(() => {
+      sandbox.restore();
+    });
+
     test('heeft de vl-textarea class', () => {
-      const label = fixture('vl-textarea-fixture');
-      assert.isTrue(label.classList.contains('vl-textarea'));
+      const textarea = fixture('vl-textarea-fixture');
+      assert.isTrue(textarea.classList.contains('vl-textarea'));
     });
 
     test('krijgt de juiste class wanneer het textarea een attribuut bevat', () => {
-      const label = fixture('vl-textarea-fixture');
+      const textarea = fixture('vl-textarea-fixture');
       ['error', 'disabled', 'block', 'success', 'focus'].forEach((attribuut) => {
-        assert.isFalse(label.classList.contains('vl-textarea--' + attribuut));
-        label.setAttribute(attribuut, '');
-        assert.isTrue(label.classList.contains('vl-textarea--' + attribuut));
-        label.removeAttribute(attribuut);
-        assert.isFalse(label.classList.contains('vl-textarea--' + attribuut));
+        assert.isFalse(textarea.classList.contains('vl-textarea--' + attribuut));
+        textarea.setAttribute(attribuut, '');
+        assert.isTrue(textarea.classList.contains('vl-textarea--' + attribuut));
+        textarea.removeAttribute(attribuut);
+        assert.isFalse(textarea.classList.contains('vl-textarea--' + attribuut));
       });
+    });
+
+    test('bij een rich variant zal de wysiwyg correct geïnitialiseerd worden', () => {
+      const textarea = fixture('vl-textarea-fixture');
+      sandbox.spy(tinyMCE, 'init');
+      textarea.setAttribute('data-vl-rich', '');
+      assert.equal(tinyMCE.baseURL, '/node_modules/tinymce');
+      assert(tinyMCE.init.calledWith(textarea._wysiwygConfig));
     });
   });
 </script>
