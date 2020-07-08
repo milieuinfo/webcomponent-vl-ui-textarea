@@ -20,13 +20,13 @@
 // ==========================================================================
 @import "vl-ui-util/src/scss/util";
 
-.tox-tinymce {
+.tox {
     &.focus {
         outline: 1px solid #ffc515 !important;
         border: 1px solid #ffc515 !important;
     }
 
-    .tox, .tox-toolbar__group {
+    .tox-toolbar__group {
         border-color: #cbd2da !important;
     }
     
@@ -35,10 +35,13 @@
     }
     
     .tox-edit-area {
-        margin: .5rem 1rem !important;
+        padding: .5rem 1rem !important;
     }
 
     .tox-statusbar {
+        position: absolute !important;
+        bottom: 0px !important;
+        right: 0px !important;
         border-top: none !important;
     }
 }

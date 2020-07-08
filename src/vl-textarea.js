@@ -1,5 +1,5 @@
 import {nativeVlElement, define} from '/node_modules/vl-ui-core/dist/vl-core.js';
-import '/src/vl-textarea-modal.js';
+import {vlLinkToolbar} from '/src/vl-tinymce-link-toolbar.js';
 import '/node_modules/tinymce/tinymce.min.js';
 
 /**
@@ -30,10 +30,6 @@ export class VlTextarea extends nativeVlElement(HTMLTextAreaElement) {
 
   get _classPrefix() {
     return 'vl-textarea--';
-  }
-
-  get _vlLinkToolbarModal() {
-    return this._template(`<vl-textarea-modal></vl-textarea-modal>`).firstElementChild;
   }
 
   get _wysiwygConfig() {
@@ -74,21 +70,7 @@ export class VlTextarea extends nativeVlElement(HTMLTextAreaElement) {
   }
 
   _registerVlLinkToolbar(editor) {
-    const modal = this._vlLinkToolbarModal;
-    this.parentElement.append(modal);
-
-    customElements.whenDefined('vl-textarea-modal').then(() => {
-      editor.ui.registry.addButton('vlLink', {
-        icon: 'link',
-        onAction: () => {
-          modal.onSubmit((event) => {
-            tinymce.activeEditor.insertContent(`<a target="_blank" href="${modal.url}">${modal.text}</a>`);
-            modal.clear();
-          });
-          modal.open();
-        },
-      });
-    });
+    editor.ui.registry.addButton('vlLink', vlLinkToolbar);
   }
 }
 
