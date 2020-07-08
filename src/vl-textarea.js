@@ -1,4 +1,6 @@
 import {nativeVlElement, define} from '/node_modules/vl-ui-core/dist/vl-core.js';
+import '/src/vl-textarea-modal.js';
+import '/node_modules/tinymce/tinymce.min.js';
 
 /**
  * VlTextArea
@@ -19,7 +21,7 @@ import {nativeVlElement, define} from '/node_modules/vl-ui-core/dist/vl-core.js'
  */
 export class VlTextarea extends nativeVlElement(HTMLTextAreaElement) {
   static get _observedClassAttributes() {
-    return ['disabled', 'block', 'error', 'success', 'focus'];
+    return ['disabled', 'block', 'error', 'success', 'focus', 'rich'];
   }
 
   connectedCallback() {
@@ -28,6 +30,65 @@ export class VlTextarea extends nativeVlElement(HTMLTextAreaElement) {
 
   get _classPrefix() {
     return 'vl-textarea--';
+  }
+
+  get _vlLinkToolbarModal() {
+    return this._template(`<vl-textarea-modal></vl-textarea-modal>`).firstElementChild;
+  }
+
+  get _wysiwygConfig() {
+    return {
+      target: this,
+      menubar: false,
+      resize: true,
+      elementpath: false,
+      branding: false,
+      powerpaste_word_import: 'clean',
+      powerpaste_html_import: 'clean',
+      content_css: '/src/style.css',
+      verify_html: false,
+      forced_root_block: '',
+      body_class: 'vl-typography',
+      toolbar: 'undo redo | bold italic underline | vlLink strikethrough blockquote hr | numlist bullist',
+      plugins: 'autolink hr lists advlist link',
+      setup: (editor) => this._registerVlLinkToolbar(editor),
+    };
+  }
+
+  _richChangedCallback(oldValue, newValue) {
+    if (newValue != undefined) {
+      this._addBlockAttribute();
+      this._configureWysiwyg();
+    }
+  }
+
+  _addBlockAttribute() {
+    this.setAttribute('data-vl-block', '');
+  }
+
+  _configureWysiwyg() {
+    tinyMCE.baseURL = '/node_modules/tinymce';
+    tinyMCE.init(this._wysiwygConfig);
+    tinymce.activeEditor.on('focus', () => tinymce.activeEditor.editorContainer.classList.add('focus'));
+    tinymce.activeEditor.on('blur', () => tinymce.activeEditor.editorContainer.classList.remove('focus'));
+  }
+
+  _registerVlLinkToolbar(editor) {
+    const modal = this._vlLinkToolbarModal;
+    this.parentElement.append(modal);
+
+    customElements.whenDefined('vl-textarea-modal').then(() => {
+      editor.ui.registry.addButton('vlLink', {
+        icon: 'link',
+        onAction: () => {
+          modal.onSubmit((event) => {
+            tinymce.activeEditor.insertContent(`<a target="_blank" href="${modal.url}">${modal.text}</a>`);
+            modal.clear();
+          });
+          modal.open();
+        },
+      });
+    });
   }
 }
 

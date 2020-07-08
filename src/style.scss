@@ -12,8 +12,33 @@
 // Components
 // ==========================================================================
 @import "vl-ui-textarea/src/scss/textarea";
+@import "vl-ui-typography/src/scss/typography";
+@import "vl-ui-button/src/scss/button";
 
 // ==========================================================================
 // Util
 // ==========================================================================
 @import "vl-ui-util/src/scss/util";
+
+.tox-tinymce {
+    &.focus {
+        outline: 1px solid #ffc515 !important;
+        border: 1px solid #ffc515 !important;
+    }
+
+    .tox, .tox-toolbar__group {
+        border-color: #cbd2da !important;
+    }
+    
+    .tox-toolbar__primary {
+        background: url("data:image/svg+xml;charset=utf8,%3Csvg height='39px' viewBox='0 0 40 39px' width='40' xmlns='http://www.w3.org/2000/svg'%3E%3Crect x='0' y='38px' width='100' height='1' fill='%23cbd2da'/%3E%3C/svg%3E") left 0 top 0 #fff !important;
+    }
+    
+    .tox-edit-area {
+        margin: .5rem 1rem !important;
+    }
+
+    .tox-statusbar {
+        border-top: none !important;
+    }
+}
