@@ -2,10 +2,6 @@ const VlTextarea = require('../components/vl-textarea');
 const {Page, Config} = require('vl-ui-core').Test;
 
 class VlTextareaPage extends Page {
-  async _getTextarea(selector) {
-    return new VlTextarea(this.driver, selector);
-  }
-
   async getTextarea() {
     return this._getTextarea('#textarea');
   }
@@ -30,8 +26,16 @@ class VlTextareaPage extends Page {
     return this._getTextarea('#textarea-focus');
   }
 
+  async getTextareaRich() {
+    return this._getTextarea('#textarea-rich');
+  }
+
   async load() {
     await super.load(Config.baseUrl + '/demo/vl-textarea.html');
+  }
+
+  async _getTextarea(selector) {
+    return new VlTextarea(this.driver, selector);
   }
 }
 

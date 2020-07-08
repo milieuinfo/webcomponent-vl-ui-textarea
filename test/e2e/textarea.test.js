@@ -1,6 +1,7 @@
-
-const {assert, driver} = require('vl-ui-core').Test.Setup;
+/* eslint-disable no-irregular-whitespace*/
+const {assert, driver, By} = require('vl-ui-core').Test.Setup;
 const VlTextareaPage = require('./pages/vl-textarea.page');
+const {VlInputField} = require('vl-ui-input-field').Test;
 
 describe('vl-textarea', async () => {
   const vlTextareaPage = new VlTextareaPage(driver);
@@ -63,5 +64,123 @@ describe('vl-textarea', async () => {
     } catch (error) {
       return Promise.resolve();
     }
+  });
+
+  it('Als gebruiker kan ik het onderscheid zien tussen een geowne textarea en een rich textarea', async () => {
+    const textarea = await vlTextareaPage.getTextarea();
+    await assert.eventually.isFalse(textarea.isRich());
+    const textareaRich = await vlTextareaPage.getTextareaRich();
+    await assert.eventually.isTrue(textareaRich.isRich());
+  });
+
+  it('Als gebruiker kan ik mijn tekst van bold, italic, underline en strikethrough stijl voorzien', async () => {
+    const textarea = await vlTextareaPage.getTextareaRich();
+    await assert.eventually.isNotEmpty(textarea.getValue());
+    await textarea.clear();
+    await assert.eventually.isEmpty(textarea.getValue());
+    const text = 'tekst';
+    await textarea.sendKeys(text);
+    await assert.eventually.include(textarea.getInnerHTML(), `${text}`);
+    await textarea.activateBold();
+    await textarea.sendKeys(text);
+    await assert.eventually.include(textarea.getInnerHTML(), `<b>﻿tekst</b>`);
+    await textarea.deactivateBold();
+    await textarea.activateItalic();
+    await textarea.sendKeys(text);
+    await assert.eventually.include(textarea.getInnerHTML(), `<i>﻿tekst</i>`);
+    await textarea.deactivateItalic();
+    await textarea.activateUnderline();
+    await textarea.sendKeys(text);
+    await assert.eventually.include(textarea.getInnerHTML(), `<u>﻿tekst</u>`);
+    await textarea.deactivateUnderline();
+    await textarea.activateStrikethrough();
+    await textarea.sendKeys(text);
+    await assert.eventually.include(textarea.getInnerHTML(), `<strike>﻿tekst</strike>`);
+    await textarea.deactivateStrikethrough();
+  });
+
+  it('Als gebruiker kan ik een quote tekst toevoegen', async () => {
+    const textarea = await vlTextareaPage.getTextareaRich();
+    await assert.eventually.isNotEmpty(textarea.getValue());
+    await textarea.clear();
+    await assert.eventually.isEmpty(textarea.getValue());
+    const text = 'quote';
+    await textarea.sendKeys(text);
+    await assert.eventually.include(textarea.getInnerHTML(), `${text}`);
+    await textarea.activateBlockquote();
+    await assert.eventually.include(textarea.getInnerHTML(), `<blockquote>${text}</blockquote>`);
+    await textarea.deactivateBlockquote();
+    await assert.eventually.include(textarea.getInnerHTML(), `${text}`);
+  });
+
+  it('Als gebruiker kan ik een horizontale lijn tag toevoegen', async () => {
+    const textarea = await vlTextareaPage.getTextareaRich();
+    await assert.eventually.isNotEmpty(textarea.getValue());
+    await textarea.clear();
+    await assert.eventually.isEmpty(textarea.getValue());
+    const text = 'text';
+    await textarea.sendKeys(text);
+    await assert.eventually.include(textarea.getInnerHTML(), `${text}`);
+    await textarea.addHorizontalLine();
+    await assert.eventually.include(textarea.getInnerHTML(), `<hr>`);
+  });
+
+  it('Als gebruiker kan ik een genummerde lijst toevoegen', async () => {
+    const textarea = await vlTextareaPage.getTextareaRich();
+    await assert.eventually.isNotEmpty(textarea.getValue());
+    await textarea.clear();
+    await assert.eventually.isEmpty(textarea.getValue());
+    const text = 'item';
+    await textarea.sendKeys(text);
+    await assert.eventually.include(textarea.getInnerHTML(), `${text}`);
+    await textarea.addNumberedList();
+    await assert.eventually.include(textarea.getInnerHTML(), `<ol><li>${text}</li></ol>`);
+  });
+
+  it('Als gebruiker kan ik een lijst toevoegen', async () => {
+    const textarea = await vlTextareaPage.getTextareaRich();
+    await assert.eventually.isNotEmpty(textarea.getValue());
+    await textarea.clear();
+    await assert.eventually.isEmpty(textarea.getValue());
+    const text = 'item';
+    await textarea.sendKeys(text);
+    await assert.eventually.include(textarea.getInnerHTML(), `${text}`);
+    await textarea.addList();
+    await assert.eventually.include(textarea.getInnerHTML(), `<ul><li>${text}</li></ul>`);
+  });
+
+  it('Als gebruiker kan ik een link toevoegen', async () => {
+    const textarea = await vlTextareaPage.getTextareaRich();
+    await assert.eventually.isNotEmpty(textarea.getValue());
+    await textarea.clear();
+    await assert.eventually.isEmpty(textarea.getValue());
+    await textarea.addLink();
+    const modal = await textarea.getLinkToolbarModal();
+    const contentElements = await modal.getContentSlotElements();
+    const textInputField = await new VlInputField(driver, await contentElements[0].findElement(By.css('#text')));
+    const linkInputField = await new VlInputField(driver, await contentElements[0].findElement(By.css('#url')));
+    const text = 'Google';
+    const link = 'https://www.google.be';
+    await textInputField.setValue(text);
+    await linkInputField.setValue(link);
+    await modal.submit();
+    await assert.eventually.include(textarea.getInnerHTML(), `<a target="_blank" href="${link}" rel="noopener" data-mce-href="${link}">${text}</a>`);
+  });
+
+  it('Als gebruiker krijg ik een foutmelding te zien als ik geen geldige tekst of link opgeef bij het toevoegen van een link', async () => {
+    const textarea = await vlTextareaPage.getTextareaRich();
+    await assert.eventually.isNotEmpty(textarea.getValue());
+    await textarea.clear();
+    await assert.eventually.isEmpty(textarea.getValue());
+    await textarea.addLink();
+    const modal = await textarea.getLinkToolbarModal();
+    const contentElements = await modal.getContentSlotElements();
+    const textInputField = await new VlInputField(driver, await contentElements[0].findElement(By.css('#text')));
+    const linkInputField = await new VlInputField(driver, await contentElements[0].findElement(By.css('#url')));
+    await assert.eventually.isFalse(textInputField.hasError());
+    await assert.eventually.isFalse(linkInputField.hasError());
+    await modal.submit();
+    await assert.eventually.isTrue(textInputField.hasError());
+    await assert.eventually.isTrue(linkInputField.hasError());
   });
 });

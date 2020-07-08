@@ -43,7 +43,8 @@
     "vl-ui-form-grid": "^3.0.4",
     "vl-ui-form-message": "^5.0.3",
     "vl-ui-icon": "^5.1.0",
-    "vl-ui-modal": "^3.0.9"
+    "vl-ui-modal": "^3.0.9",
+    "vl-ui-input-field": "github:milieuinfo/webcomponent-vl-ui-input-field#validity"
   },
   "peerDependencies": {
     "vl-ui-core": "^5.6.0",
@@ -57,8 +58,8 @@
     "vl-ui-form-grid": "^3.0.4",
     "vl-ui-form-message": "^5.0.3",
     "vl-ui-icon": "^5.1.0",
-    "vl-ui-input-field": "github:milieuinfo/webcomponent-vl-ui-input-field#validity",
     "vl-ui-modal": "^3.0.9",
+    "vl-ui-input-field": "github:milieuinfo/webcomponent-vl-ui-input-field#validity",
     "vl-ui-util": "^5.2.9"
   }
 }

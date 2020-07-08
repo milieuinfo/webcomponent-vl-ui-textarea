@@ -7,6 +7,8 @@ import '/node_modules/vl-ui-button/dist/vl-button.min.js';
 
 export const vlLinkToolbar = {
   icon: 'link',
+  title: 'Link',
+  tooltip: 'Link',
   onSetup: () => {
     const modal = document.createElement('vl-textarea-modal');
     const target = tinymce.activeEditor.targetElm;
