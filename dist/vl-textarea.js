@@ -70,6 +70,7 @@ export class VlTextarea extends nativeVlElement(HTMLTextAreaElement) {
       content_css: '/node_modules/vl-ui-textarea/dist/style.css',
       verify_html: false,
       forced_root_block: '',
+      force_p_newlines: true,
       body_class: 'vl-typography',
       toolbar: 'undo redo | bold italic underline strikethrough | h1 h2 h3 h4 h5 h6 | vlLink blockquote hr | numlist bullist',
       plugins: 'autolink hr lists advlist link',
