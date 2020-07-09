@@ -10,14 +10,16 @@ export const vlLinkToolbar = {
   title: 'Link',
   tooltip: 'Link',
   onSetup: () => {
+    console.log('todo');
+  },
+  onAction: () => {
+    // TODO only add modal if it does not exist
+    // it is placed inside here because of application rerender
     const modal = document.createElement('vl-textarea-modal');
     const target = tinymce.activeEditor.targetElm;
     const parent = target.parentElement || target.getRootNode();
     parent.append(modal);
-  },
-  onAction: () => {
     customElements.whenDefined('vl-textarea-modal').then(() => {
-      const modal = tinymce.activeEditor.targetElm.parentElement.querySelector('vl-textarea-modal');
       modal.onSubmit(() => {
         tinymce.activeEditor.insertContent(`<a target="_blank" href="${modal.url}">${modal.text}</a>`);
         modal.clear();

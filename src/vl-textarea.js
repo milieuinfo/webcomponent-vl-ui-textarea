@@ -58,10 +58,12 @@ export class VlTextarea extends nativeVlElement(HTMLTextAreaElement) {
   }
 
   _richChangedCallback(oldValue, newValue) {
-    if (newValue != undefined) {
-      this._addBlockAttribute();
-      this._configureWysiwyg();
-    }
+    setTimeout(() => {
+      if (newValue != undefined) {
+        this._addBlockAttribute();
+        this._configureWysiwyg();
+      }
+    });
   }
 
   _addBlockAttribute() {
