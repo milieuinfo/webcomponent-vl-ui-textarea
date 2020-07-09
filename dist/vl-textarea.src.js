@@ -41,7 +41,7 @@ export class VlTextarea extends nativeVlElement(HTMLTextAreaElement) {
       branding: false,
       powerpaste_word_import: 'clean',
       powerpaste_html_import: 'clean',
-      content_css: '/src/style.css',
+      content_css: '/node_modules/vl-ui-textarea/dist/style.css',
       verify_html: false,
       forced_root_block: '',
       body_class: 'vl-typography',
