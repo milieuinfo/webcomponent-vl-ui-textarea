@@ -12,7 +12,8 @@ export const vlLinkToolbar = {
   onSetup: () => {
     const modal = document.createElement('vl-textarea-modal');
     const target = tinymce.activeEditor.targetElm;
-    target.parentElement.append(modal);
+    const parent = target.parentElement || target.getRootNode();
+    parent.append(modal);
   },
   onAction: () => {
     customElements.whenDefined('vl-textarea-modal').then(() => {

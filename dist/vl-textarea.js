@@ -73,7 +73,7 @@ export class VlTextarea extends nativeVlElement(HTMLTextAreaElement) {
     tinyMCE.init(this._wysiwygConfig);
     tinymce.activeEditor.on('focus', () => tinymce.activeEditor.editorContainer.classList.add('focus')); // TODO test me
     tinymce.activeEditor.on('blur', () => tinymce.activeEditor.editorContainer.classList.remove('focus')); // TODO test me
-    tinyMCE.activeEditor.on('change', () => this.value = tinyMCE.activeEditor.getContent({format: 'html'})); // TODO test me
+    tinyMCE.activeEditor.on('change', () => tinymce.activeEditor.save()); // TODO test me
   }
 
   _registerVlLinkToolbar(editor) {
