@@ -26,6 +26,32 @@ export class VlTextarea extends nativeVlElement(HTMLTextAreaElement) {
 
   connectedCallback() {
     this.classList.add('vl-textarea');
+
+    // TODO hot fix
+    if (this.hasAttribute('data-vl-rich')) {
+      setTimeout(() => {
+        this._addBlockAttribute();
+        this._configureWysiwyg();
+
+        setTimeout(() => {
+          const observer = new MutationObserver(() => {
+            tinymce.editors.forEach((editor) => {
+              editor.setContent(editor.targetElm.value);
+            });
+          });
+          observer.observe(this, {childList: true, characterData: true, subtree: true});
+        });
+      });
+    }
+  }
+
+  disconnectedCallback() {
+    // TODO hot fix
+    tinymce.editors.forEach((editor) => {
+      if (editor.targetElm === this) {
+        editor.remove();
+      }
+    });
   }
 
   get _classPrefix() {
@@ -55,15 +81,6 @@ export class VlTextarea extends nativeVlElement(HTMLTextAreaElement) {
       },
       setup: (editor) => this._registerVlLinkToolbar(editor),
     };
-  }
-
-  _richChangedCallback(oldValue, newValue) {
-    setTimeout(() => {
-      if (newValue != undefined) {
-        this._addBlockAttribute();
-        this._configureWysiwyg();
-      }
-    });
   }
 
   _addBlockAttribute() {
