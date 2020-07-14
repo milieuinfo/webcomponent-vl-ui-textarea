@@ -24,10 +24,26 @@ export class VlLinkToolbarFactory {
         const parent = target.parentElement || target.getRootNode();
         const modal = parent.querySelector('vl-textarea-modal');
         customElements.whenDefined('vl-textarea-modal').then(() => {
-          modal.onSubmit(() => {
-            editor.insertContent(`<a target="_blank" href="${modal.url}">${modal.text}</a>`);
-            modal.clear();
-          });
+          const selectedNode = editor.selection.getNode();
+          const selectedText = editor.selection.getContent();
+
+          if (selectedNode && selectedNode.href) {
+            modal.text = selectedNode.textContent;
+            modal.url = selectedNode.href;
+            modal.onSubmit(() => {
+              selectedNode.text = modal.text;
+              selectedNode.href = modal.url;
+            });
+          } else {
+            if (selectedText) {
+              modal.text = selectedText;
+              modal.focusUrl();
+            }
+            modal.onSubmit(() => {
+              editor.insertContent(`<a target="_blank" href="${modal.url}">${modal.text}</a>`);
+            });
+          }
+
           modal.open();
         });
       },
@@ -49,7 +65,7 @@ class VlTextareaModal extends vlElement(HTMLElement) {
           display: none;
         }
       </style>
-      <vl-modal id="modal-cl" data-title="Link toevoegen" closable>
+      <vl-modal id="modal-cl" data-title="Link toevoegen">
         <form id="link-form" slot="content" data-validate-form target="hidden">
           <div is="vl-form-grid" is-stacked>
             <div is="vl-form-column" size="12">
@@ -64,10 +80,14 @@ class VlTextareaModal extends vlElement(HTMLElement) {
             </div>
           </div>
         </form>
-        <button is="vl-button" slot="button" type="submit" form="link-form">Toevoegen</button>
+        <button is="vl-button" slot="button" type="submit" form="link-form">Bewaar</button>
         <iframe name="hidden" width="0" height="0" border="0"></iframe>
       </vl-modal>
     `);
+  }
+
+  connectedCallback() {
+    this._modal.on('close', () => this.clear());
   }
 
   get text() {
@@ -76,6 +96,18 @@ class VlTextareaModal extends vlElement(HTMLElement) {
 
   get url() {
     return this._urlInputField.value;
+  }
+
+  set text(value) {
+    this._textInputField.value = value;
+  }
+
+  set url(value) {
+    this._urlInputField.value = value;
+  }
+
+  focusUrl() {
+    this._urlInputField.setAttribute('autofocus', '');
   }
 
   get _textInputField() {
@@ -109,6 +141,8 @@ class VlTextareaModal extends vlElement(HTMLElement) {
   clear() {
     this._textInputField.value = '';
     this._urlInputField.value = '';
+    this._textInputField.removeAttribute('autofocus');
+    this._urlInputField.removeAttribute('autofocus');
   }
 
   onSubmit(callback) {
@@ -118,6 +152,8 @@ class VlTextareaModal extends vlElement(HTMLElement) {
         this.close();
         callback(event);
       }
+    }, {
+      once: true,
     });
   }
 }

@@ -222,4 +222,8 @@ describe('vl-textarea', async () => {
     await textarea.sendKeys(text);
     await assert.eventually.include(textarea.getValue(), `${text}`);
   });
+
+  // TODO test toevoegen annuleren knop cleart de velden + foutmeldingen
+  // TODO test toevoegen geselecteerde tekst automatisch invullen in link modal
+  // TODO test link text en href toevoegen aan modal + bewaren i.p.v. toevoegen bij submit
 });
