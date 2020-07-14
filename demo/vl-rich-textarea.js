@@ -7,7 +7,9 @@ class VlRichTextarea extends vlElement(HTMLElement) {
       <style>
         @import '/src/style.css';
       </style>
-      <textarea is="vl-textarea" cols="40" rows="4" data-vl-rich></textarea>
+      <div>
+        <textarea is="vl-textarea" cols="40" rows="4" data-vl-rich></textarea>
+      </div>
     `);
   }
 }

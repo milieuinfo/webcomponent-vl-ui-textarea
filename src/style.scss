@@ -21,10 +21,65 @@
 // ==========================================================================
 @import "vl-ui-util/src/scss/util";
 
+$focus-color: #ffc515;
+
 .tox {
+    &.error {
+        border-color: $vl-error-color;
+        box-shadow: 0 0 0 0.1rem $vl-error-color;
+        background-color: $vl-error-secondary-color;
+
+        &:hover {
+            box-shadow: none;
+        }
+
+        iframe {
+            background-color: $vl-error-secondary-color;
+        }
+
+        .tox-toolbar__primary {
+            box-shadow: inset 0px -1px 0px 0px $vl-error-color;
+
+            .tox-toolbar__group {
+                border-color: $vl-error-color !important;
+            }
+        }
+    }
+
+    &.success {
+        border-color: $vl-limeade;
+        box-shadow: 0 0 0 0.1rem $vl-limeade;
+        background-color: $vl-rum-swizzle;
+
+        &:hover {
+            box-shadow: none;
+        }
+
+        iframe {
+            background-color: $vl-rum-swizzle;
+        }
+
+        .tox-toolbar__primary {
+            box-shadow: inset 0px -1px 0px 0px $vl-limeade;
+
+            .tox-toolbar__group {
+                border-color: $vl-limeade !important;
+            }
+        }
+    }
+
     &.focus {
-        outline: 1px solid #ffc515 !important;
-        border: 1px solid #ffc515 !important;
+        outline: 1px solid $focus-color !important;
+        border: 1px solid $focus-color !important;
+
+
+        .tox-toolbar__primary {
+            box-shadow: inset 0px -1px 0px 0px $focus-color !important;
+
+            .tox-toolbar__group {
+                border-color: $focus-color !important;
+            }
+        }
     }
 
     .tox-toolbar__group {
@@ -32,7 +87,8 @@
     }
     
     .tox-toolbar__primary {
-        background: url("data:image/svg+xml;charset=utf8,%3Csvg height='39px' viewBox='0 0 40 39px' width='40' xmlns='http://www.w3.org/2000/svg'%3E%3Crect x='0' y='38px' width='100' height='1' fill='%23cbd2da'/%3E%3C/svg%3E") left 0 top 0 #fff !important;
+        background: none !important;
+        box-shadow: inset 0px -1px 0px 0px #cbd2da;
     }
     
     .tox-statusbar {
@@ -40,6 +96,7 @@
         bottom: 0px !important;
         right: 0px !important;
         border-top: none !important;
+        background: transparent !important;
     }
 
     iframe {
@@ -48,5 +105,15 @@
         left: 0px;
         bottom: 0px;
         right: 0px;
+    }
+}
+
+.mce-content-body {
+    &.error {
+        background-color: $vl-error-secondary-color;
+    }
+
+    &.success {
+        background-color: $vl-rum-swizzle;
     }
 }

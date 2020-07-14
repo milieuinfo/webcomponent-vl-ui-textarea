@@ -1,5 +1,4 @@
-/* eslint-disable no-irregular-whitespace*/
-const {assert, driver, By} = require('vl-ui-core').Test.Setup;
+const {assert, driver, By, Key} = require('vl-ui-core').Test.Setup;
 const VlTextareaPage = require('./pages/vl-textarea.page');
 const {VlInputField} = require('vl-ui-input-field').Test;
 
@@ -59,7 +58,7 @@ describe('vl-textarea', async () => {
     const textareaDisabled = await vlTextareaPage.getTextareaDisabled();
     await assert.eventually.isFalse(textareaDisabled.isEnabled());
     try {
-      await textareaDisabled.setValue('tekst');
+      await textareaDisabled.setValue('text');
       assert.isTrue(false);
     } catch (error) {
       return Promise.resolve();
@@ -73,109 +72,103 @@ describe('vl-textarea', async () => {
     await assert.eventually.isTrue(textareaRich.isRich());
   });
 
+  it('Als gebruiker kan ik tekst toevoegen en zal er automatisch een root paragraaf tag toegevoegd worden', async () => {
+    const textarea = await vlTextareaPage.getTextareaRich();
+    await textarea.clear();
+    const text = 'text';
+    await textarea.sendKeys(text);
+    await assert.eventually.include(textarea.getValue(), `<p>${text}</p>`);
+  });
+
   it('Als gebruiker kan ik mijn tekst van bold, italic, underline en strikethrough stijl voorzien', async () => {
     const textarea = await vlTextareaPage.getTextareaRich();
-    await assert.eventually.isNotEmpty(textarea.getValue());
     await textarea.clear();
-    await assert.eventually.isEmpty(textarea.getValue());
-    const text = 'tekst';
+    const text = 'text';
     await textarea.sendKeys(text);
-    await assert.eventually.include(textarea.getInnerHTML(), `${text}`);
+    await assert.eventually.include(textarea.getValue(), `${text}`);
     await textarea.activateBold();
     await textarea.sendKeys(text);
-    await assert.eventually.include(textarea.getInnerHTML(), `<b>﻿tekst</b>`); // nasty tinyMCE irregular whitespace
+    await assert.eventually.include(textarea.getValue(), `<b>${text}</b>`);
     await textarea.deactivateBold();
     await textarea.activateItalic();
     await textarea.sendKeys(text);
-    await assert.eventually.include(textarea.getInnerHTML(), `<i>﻿tekst</i>`); // nasty tinyMCE irregular whitespace
+    await assert.eventually.include(textarea.getValue(), `<i>${text}</i>`);
     await textarea.deactivateItalic();
     await textarea.activateUnderline();
     await textarea.sendKeys(text);
-    await assert.eventually.include(textarea.getInnerHTML(), `<u>﻿tekst</u>`); // nasty tinyMCE irregular whitespace
+    await assert.eventually.include(textarea.getValue(), `<u>${text}</u>`);
     await textarea.deactivateUnderline();
     await textarea.activateStrikethrough();
     await textarea.sendKeys(text);
-    await assert.eventually.include(textarea.getInnerHTML(), `<strike>﻿tekst</strike>`); // nasty tinyMCE irregular whitespace
+    await assert.eventually.include(textarea.getValue(), `<s>${text}</s>`);
     await textarea.deactivateStrikethrough();
   });
 
   it('Als gebruiker kan ik titels toevoegen', async () => {
     const textarea = await vlTextareaPage.getTextareaRich();
-    await assert.eventually.isNotEmpty(textarea.getValue());
     await textarea.clear();
-    await assert.eventually.isEmpty(textarea.getValue());
     const text = 'title';
     await textarea.sendKeys(text);
-    await assert.eventually.include(textarea.getInnerHTML(), `${text}`);
+    await assert.eventually.include(textarea.getValue(), `${text}`);
     await textarea.activateH1();
-    await assert.eventually.include(textarea.getInnerHTML(), `<h1>${text}</h1>`);
+    await assert.eventually.include(textarea.getValue(), `<h1>${text}</h1>`);
     await textarea.activateH2();
-    await assert.eventually.include(textarea.getInnerHTML(), `<h2>${text}</h2>`);
+    await assert.eventually.include(textarea.getValue(), `<h2>${text}</h2>`);
     await textarea.activateH3();
-    await assert.eventually.include(textarea.getInnerHTML(), `<h3>${text}</h3>`);
+    await assert.eventually.include(textarea.getValue(), `<h3>${text}</h3>`);
     await textarea.activateH4();
-    await assert.eventually.include(textarea.getInnerHTML(), `<h4>${text}</h4>`);
+    await assert.eventually.include(textarea.getValue(), `<h4>${text}</h4>`);
     await textarea.activateH5();
-    await assert.eventually.include(textarea.getInnerHTML(), `<h5>${text}</h5>`);
+    await assert.eventually.include(textarea.getValue(), `<h5>${text}</h5>`);
     await textarea.activateH6();
-    await assert.eventually.include(textarea.getInnerHTML(), `<h6>${text}</h6>`);
+    await assert.eventually.include(textarea.getValue(), `<h6>${text}</h6>`);
   });
 
   it('Als gebruiker kan ik een quote tekst toevoegen', async () => {
     const textarea = await vlTextareaPage.getTextareaRich();
-    await assert.eventually.isNotEmpty(textarea.getValue());
     await textarea.clear();
-    await assert.eventually.isEmpty(textarea.getValue());
     const text = 'quote';
     await textarea.sendKeys(text);
-    await assert.eventually.include(textarea.getInnerHTML(), `${text}`);
+    await assert.eventually.include(textarea.getValue(), `${text}`);
     await textarea.activateBlockquote();
-    await assert.eventually.include(textarea.getInnerHTML(), `<blockquote>${text}</blockquote>`);
+    await assert.eventually.include(textarea.getValue(), `<blockquote>\n<p>${text}</p>\n</blockquote>`);
     await textarea.deactivateBlockquote();
-    await assert.eventually.include(textarea.getInnerHTML(), `${text}`);
+    await assert.eventually.include(textarea.getValue(), `${text}`);
   });
 
   it('Als gebruiker kan ik een horizontale lijn tag toevoegen', async () => {
     const textarea = await vlTextareaPage.getTextareaRich();
-    await assert.eventually.isNotEmpty(textarea.getValue());
     await textarea.clear();
-    await assert.eventually.isEmpty(textarea.getValue());
     const text = 'text';
     await textarea.sendKeys(text);
-    await assert.eventually.include(textarea.getInnerHTML(), `${text}`);
+    await assert.eventually.include(textarea.getValue(), `${text}`);
     await textarea.addHorizontalLine();
-    await assert.eventually.include(textarea.getInnerHTML(), `<hr>`);
+    await assert.eventually.include(textarea.getValue(), `<hr />`);
   });
 
   it('Als gebruiker kan ik een genummerde lijst toevoegen', async () => {
     const textarea = await vlTextareaPage.getTextareaRich();
-    await assert.eventually.isNotEmpty(textarea.getValue());
     await textarea.clear();
-    await assert.eventually.isEmpty(textarea.getValue());
     const text = 'item';
     await textarea.sendKeys(text);
-    await assert.eventually.include(textarea.getInnerHTML(), `${text}`);
+    await assert.eventually.include(textarea.getValue(), `${text}`);
     await textarea.addNumberedList();
-    await assert.eventually.include(textarea.getInnerHTML(), `<ol><li>${text}</li></ol>`);
+    await assert.eventually.include(textarea.getValue(), `<ol>\n<li>${text}</li>\n</ol>`);
   });
 
   it('Als gebruiker kan ik een lijst toevoegen', async () => {
     const textarea = await vlTextareaPage.getTextareaRich();
-    await assert.eventually.isNotEmpty(textarea.getValue());
     await textarea.clear();
-    await assert.eventually.isEmpty(textarea.getValue());
     const text = 'item';
     await textarea.sendKeys(text);
-    await assert.eventually.include(textarea.getInnerHTML(), `${text}`);
+    await assert.eventually.include(textarea.getValue(), `${text}`);
     await textarea.addList();
-    await assert.eventually.include(textarea.getInnerHTML(), `<ul><li>${text}</li></ul>`);
+    await assert.eventually.include(textarea.getValue(), `<ul>\n<li>${text}</li>\n</ul>`);
   });
 
   it('Als gebruiker kan ik een link toevoegen', async () => {
     const textarea = await vlTextareaPage.getTextareaRich();
-    await assert.eventually.isNotEmpty(textarea.getValue());
     await textarea.clear();
-    await assert.eventually.isEmpty(textarea.getValue());
     await textarea.addLink();
     const modal = await textarea.getLinkToolbarModal();
     const contentElements = await modal.getContentSlotElements();
@@ -186,14 +179,12 @@ describe('vl-textarea', async () => {
     await textInputField.setValue(text);
     await linkInputField.setValue(link);
     await modal.submit();
-    await assert.eventually.include(textarea.getInnerHTML(), `<a target="_blank" href="${link}" rel="noopener" data-mce-href="${link}">${text}</a>`);
+    await assert.eventually.include(textarea.getValue(), `<a target="_blank" href="${link}" rel="noopener">${text}</a>`);
   });
 
   it('Als gebruiker krijg ik een foutmelding te zien als ik geen geldige tekst of link opgeef bij het toevoegen van een link', async () => {
     const textarea = await vlTextareaPage.getTextareaRich();
-    await assert.eventually.isNotEmpty(textarea.getValue());
     await textarea.clear();
-    await assert.eventually.isEmpty(textarea.getValue());
     await textarea.addLink();
     const modal = await textarea.getLinkToolbarModal();
     const contentElements = await modal.getContentSlotElements();
@@ -204,5 +195,31 @@ describe('vl-textarea', async () => {
     await modal.submit();
     await assert.eventually.isTrue(textInputField.hasError());
     await assert.eventually.isTrue(linkInputField.hasError());
+    await modal.close();
+  });
+
+  it('Als gebruiker maak ik een nieuw paragraph element bij elke enter', async () => {
+    const textarea = await vlTextareaPage.getTextareaRich();
+    await textarea.clear();
+    const text = 'text';
+    await textarea.sendKeys(text + Key.RETURN + text);
+    await assert.eventually.include(textarea.getValue(), `<p>text</p>\n<p>text</p>`);
+  });
+
+  it('Als gebruiker kan ik tekst kopiëren zonder stijl', async () => {
+    const textarea = await vlTextareaPage.getTextareaRich();
+    await textarea.clear();
+    const text = 'text';
+    await textarea.sendKeys(text);
+    await assert.eventually.include(textarea.getValue(), `<p>${text}</p>`);
+    await textarea.copyPasteValue();
+    await assert.eventually.include(textarea.getValue(), `<p>${text}${text}</p>`);
+  });
+
+  it('Als gebruiker kan ik tekst toevoegen aan een rich textarea in een shadow DOM', async () => {
+    const textarea = await vlTextareaPage.getTextareaRichShadowDOM();
+    const text = 'text';
+    await textarea.sendKeys(text);
+    await assert.eventually.include(textarea.getValue(), `${text}`);
   });
 });

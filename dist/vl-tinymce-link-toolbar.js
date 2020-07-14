@@ -5,28 +5,34 @@ import '/node_modules/vl-ui-form-message/dist/vl-form-message.js';
 import '/node_modules/vl-ui-input-field/dist/vl-input-field.js';
 import '/node_modules/vl-ui-button/dist/vl-button.js';
 
-export const vlLinkToolbar = {
-  icon: 'link',
-  title: 'Link',
-  tooltip: 'Link',
-  onSetup: () => {
-    console.log('todo');
-  },
-  onAction: () => {
-    // TODO only add modal if it does not exist
-    // it is placed inside here because of application rerender
-    const modal = document.createElement('vl-textarea-modal');
-    const target = tinymce.activeEditor.targetElm;
-    const parent = target.parentElement || target.getRootNode();
-    parent.append(modal);
-    customElements.whenDefined('vl-textarea-modal').then(() => {
-      modal.onSubmit(() => {
-        tinymce.activeEditor.insertContent(`<a target="_blank" href="${modal.url}">${modal.text}</a>`);
-        modal.clear();
-      });
-      modal.open();
-    });
-  },
+export class VlLinkToolbarFactory {
+  create(editor) {
+    return {
+      icon: 'link',
+      title: 'Link',
+      tooltip: 'Link',
+      onSetup: () => {
+        const target = editor.targetElm;
+        const parent = target.parentElement || target.getRootNode();
+        if (!parent.querySelector('vl-textarea-modal')) {
+          const modal = document.createElement('vl-textarea-modal');
+          parent.append(modal);
+        }
+      },
+      onAction: () => {
+        const target = editor.targetElm;
+        const parent = target.parentElement || target.getRootNode();
+        const modal = parent.querySelector('vl-textarea-modal');
+        customElements.whenDefined('vl-textarea-modal').then(() => {
+          modal.onSubmit(() => {
+            editor.insertContent(`<a target="_blank" href="${modal.url}">${modal.text}</a>`);
+            modal.clear();
+          });
+          modal.open();
+        });
+      },
+    };
+  };
 };
 
 class VlTextareaModal extends vlElement(HTMLElement) {
@@ -38,23 +44,28 @@ class VlTextareaModal extends vlElement(HTMLElement) {
         @import '/node_modules/vl-ui-form-message/dist/style.css';
         @import '/node_modules/vl-ui-input-field/dist/style.css';
         @import '/node_modules/vl-ui-button/dist/style.css';
+
+        iframe {
+          display: none;
+        }
       </style>
       <vl-modal id="modal-cl" data-title="Link toevoegen" closable>
-        <form id="link-form" slot="content" data-validate-form>
+        <form id="link-form" slot="content" data-validate-form target="hidden">
           <div is="vl-form-grid" is-stacked>
             <div is="vl-form-column" size="12">
-                <label is="vl-form-label" for="text" data-vl-block>Tekst</label>
-                <input id="text" is="vl-input-field" placeholder="Link" data-vl-block data-required="true" data-vl-error-message="Gelieve een tekst in te vullen" data-vl-error-placeholder="text-error">
-                <p is="vl-form-validation-message" error data-vl-error-id="text-error"></p>
+              <label is="vl-form-label" for="text" data-vl-block>Tekst</label>
+              <input id="text" is="vl-input-field" placeholder="Link" data-vl-block data-required="true" data-vl-error-message="Gelieve een tekst in te vullen" data-vl-error-placeholder="text-error">
+              <p is="vl-form-validation-message" error data-vl-error-id="text-error"></p>
             </div>
             <div is="vl-form-column" size="12">
-                <label is="vl-form-label" for="url" data-vl-block>URL</label>
-                <input id="url" is="vl-input-field" placeholder="https://vlaanderen.be" data-vl-block data-required="true" data-vl-error-message="Gelieve een URL in te vullen" data-vl-error-placeholder="url-error">
-                <p is="vl-form-validation-message" error data-vl-error-id="url-error"></p>
+              <label is="vl-form-label" for="url" data-vl-block>URL</label>
+              <input id="url" is="vl-input-field" placeholder="https://vlaanderen.be" data-vl-block data-required="true" data-vl-error-message="Gelieve een URL in te vullen" data-vl-error-placeholder="url-error">
+              <p is="vl-form-validation-message" error data-vl-error-id="url-error"></p>
             </div>
           </div>
-          </form>
-          <button is="vl-button" slot="button" type="submit" form="link-form">Toevoegen</button>
+        </form>
+        <button is="vl-button" slot="button" type="submit" form="link-form">Toevoegen</button>
+        <iframe name="hidden" width="0" height="0" border="0"></iframe>
       </vl-modal>
     `);
   }

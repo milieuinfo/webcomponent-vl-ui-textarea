@@ -12,45 +12,84 @@
 </head>
 
 <body>
-<test-fixture id="vl-textarea-fixture">
-  <template>
-    <textarea id="textarea" is="vl-textarea"></textarea>
-  </template>
-</test-fixture>
+  <test-fixture id="vl-textarea-fixture">
+    <template>
+      <textarea id="textarea" is="vl-textarea"></textarea>
+    </template>
+  </test-fixture>
 
-<script>
-  suite('<vl-textarea>', () => {
-    const sandbox = sinon.createSandbox();
+  <test-fixture id="vl-textarea-rich-fixture">
+    <template>
+      <div>
+        <textarea id="textarea" is="vl-textarea" data-vl-rich></textarea>
+      </div>
+    </template>
+  </test-fixture>
 
-    teardown(() => {
-      sandbox.restore();
-    });
+  <script type="module">
+    import {awaitUntil} from '/node_modules/vl-ui-core/dist/vl-core.js';
 
-    test('heeft de vl-textarea class', () => {
-      const textarea = fixture('vl-textarea-fixture');
-      assert.isTrue(textarea.classList.contains('vl-textarea'));
-    });
+    suite('<vl-textarea>', () => {
+      const sandbox = sinon.createSandbox();
 
-    test('krijgt de juiste class wanneer het textarea een attribuut bevat', () => {
-      const textarea = fixture('vl-textarea-fixture');
-      ['error', 'disabled', 'block', 'success', 'focus'].forEach((attribuut) => {
-        assert.isFalse(textarea.classList.contains('vl-textarea--' + attribuut));
-        textarea.setAttribute(attribuut, '');
-        assert.isTrue(textarea.classList.contains('vl-textarea--' + attribuut));
-        textarea.removeAttribute(attribuut);
-        assert.isFalse(textarea.classList.contains('vl-textarea--' + attribuut));
+      teardown(() => {
+        sandbox.restore();
+      });
+
+      test('heeft de vl-textarea class', () => {
+        const textarea = fixture('vl-textarea-fixture');
+        assert.isTrue(textarea.classList.contains('vl-textarea'));
+      });
+
+      test('krijgt de juiste class wanneer het textarea een attribuut bevat', () => {
+        const textarea = fixture('vl-textarea-fixture');
+        ['error', 'disabled', 'block', 'success', 'focus'].forEach((attribuut) => {
+          assert.isFalse(textarea.classList.contains('vl-textarea--' + attribuut));
+          textarea.setAttribute(attribuut, '');
+          assert.isTrue(textarea.classList.contains('vl-textarea--' + attribuut));
+          textarea.removeAttribute(attribuut);
+          assert.isFalse(textarea.classList.contains('vl-textarea--' + attribuut));
+        });
+      });
+
+      test('bij een rich variant zal de wysiwyg correct geïnitialiseerd worden', () => {
+        const textarea = fixture('vl-textarea-fixture');
+        sandbox.spy(tinyMCE, 'init');
+        textarea.setAttribute('data-vl-rich', '');
+        assert.equal(tinyMCE.baseURL, '/node_modules/tinymce');
+        assert(tinyMCE.init.called);
+      });
+
+      test('de wysiwyg wordt correct afgesloten bij een disconnect', () => {
+        const textarea = fixture('vl-textarea-rich-fixture').querySelector('textarea');
+        sandbox.spy(textarea._editor, 'destroy');
+        textarea.disconnectedCallback();
+        assert(textarea._editor.destroy.called);
+      });
+
+      test('de wysiwyg wordt correct afgesloten wanneer hij niet meer rich is', () => {
+        const textarea = fixture('vl-textarea-rich-fixture').querySelector('textarea');
+        sandbox.spy(textarea._editor, 'destroy');
+        textarea.removeAttribute('data-vl-rich');
+        assert(textarea._editor.destroy.called);
+      });
+
+      test('de success en error attributen worden correct gezet op de wysiwyg elementen', (done) => {
+        const array = ['success', 'error'];
+        array.forEach((attribute, index) => {
+          const textarea = fixture('vl-textarea-rich-fixture').querySelector('textarea');
+          textarea.setAttribute(`data-vl-${attribute}`, '');
+          awaitUntil(() => textarea._editor && textarea._editor.getContainer()).then(() => {
+            assert.isTrue(textarea._editor.getContainer().classList.contains(attribute));
+            assert.isTrue(textarea._editor.getBody().classList.contains(attribute));
+            if (array.length == ++index) {
+              done();
+            }
+          });
+        });
       });
     });
-
-    test('bij een rich variant zal de wysiwyg correct geïnitialiseerd worden', () => {
-      const textarea = fixture('vl-textarea-fixture');
-      sandbox.spy(tinyMCE, 'init');
-      textarea.setAttribute('data-vl-rich', '');
-      assert.equal(tinyMCE.baseURL, '/node_modules/tinymce');
-      assert(tinyMCE.init.calledWith(textarea._wysiwygConfig));
-    });
-  });
-</script>
+  </script>
 </body>
 
 </html>

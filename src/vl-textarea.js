@@ -1,5 +1,5 @@
-import {nativeVlElement, define} from '/node_modules/vl-ui-core/dist/vl-core.js';
-import {vlLinkToolbar} from '/src/vl-tinymce-link-toolbar.js';
+import {nativeVlElement, define, awaitUntil} from '/node_modules/vl-ui-core/dist/vl-core.js';
+import {VlLinkToolbarFactory} from '/src/vl-tinymce-link-toolbar.js';
 import '/node_modules/tinymce/tinymce.min.js';
 
 /**
@@ -20,6 +20,10 @@ import '/node_modules/tinymce/tinymce.min.js';
  * @see {@link https://webcomponenten.omgeving.vlaanderen.be/demo/vl-textarea.html|Demo}
  */
 export class VlTextarea extends nativeVlElement(HTMLTextAreaElement) {
+  static get _observedAttributes() {
+    return ['error', 'success'];
+  }
+
   static get _observedClassAttributes() {
     return ['disabled', 'block', 'error', 'success', 'focus', 'rich'];
   }
@@ -27,31 +31,19 @@ export class VlTextarea extends nativeVlElement(HTMLTextAreaElement) {
   connectedCallback() {
     this.classList.add('vl-textarea');
 
-    // TODO hot fix
-    if (this.hasAttribute('data-vl-rich')) {
-      setTimeout(() => {
-        this._addBlockAttribute();
-        this._configureWysiwyg();
-
-        setTimeout(() => {
-          const observer = new MutationObserver(() => {
-            tinymce.editors.forEach((editor) => {
-              editor.setContent(editor.targetElm.value);
-            });
-          });
-          observer.observe(this, {childList: true, characterData: true, subtree: true});
-        });
-      });
+    if (this.isRich) {
+      this._configureWysiwyg();
     }
   }
 
   disconnectedCallback() {
-    // TODO hot fix
-    tinymce.editors.forEach((editor) => {
-      if (editor.targetElm === this) {
-        editor.remove();
-      }
-    });
+    if (this.isRich) {
+      this._destroyWysiwyg();
+    }
+  }
+
+  get isRich() {
+    return this.hasAttribute('data-vl-rich');
   }
 
   get _classPrefix() {
@@ -65,22 +57,27 @@ export class VlTextarea extends nativeVlElement(HTMLTextAreaElement) {
       resize: true,
       elementpath: false,
       branding: false,
+      paste_as_text: true,
       powerpaste_word_import: 'clean',
       powerpaste_html_import: 'clean',
       content_css: '/src/style.css',
       verify_html: false,
-      forced_root_block: '',
-      force_p_newlines: true, // TODO test me
+      forced_root_block: 'p',
       body_class: 'vl-typography',
-      toolbar: 'undo redo | bold italic underline strikethrough | h1 h2 h3 h4 h5 h6 | vlLink blockquote hr | numlist bullist',
-      plugins: 'autolink hr lists advlist link',
+      plugins: 'hr lists advlist paste',
       formats: {
         bold: {inline: 'b'},
         italic: {inline: 'i'},
         underline: {inline: 'u'},
-        strikethrough: {inline: 'strike'},
+        strikethrough: {inline: 's'},
       },
-      setup: (editor) => this._registerVlLinkToolbar(editor),
+      toolbar: 'undo redo | bold italic underline strikethrough | h1 h2 h3 h4 h5 h6 | vlLink blockquote hr | numlist bullist',
+      setup: (editor) => {
+        this._registerVlLinkToolbar(editor);
+        this._initWysiwyg(editor);
+        const observer = new MutationObserver(() => editor.setContent(editor.targetElm.value));
+        observer.observe(this, {childList: true, characterData: true, subtree: true});
+      },
     };
   }
 
@@ -89,15 +86,53 @@ export class VlTextarea extends nativeVlElement(HTMLTextAreaElement) {
   }
 
   _configureWysiwyg() {
+    this._addBlockAttribute();
     tinyMCE.baseURL = '/node_modules/tinymce';
     tinyMCE.init(this._wysiwygConfig);
-    tinymce.activeEditor.on('focus', () => tinymce.activeEditor.editorContainer.classList.add('focus')); // TODO test me
-    tinymce.activeEditor.on('blur', () => tinymce.activeEditor.editorContainer.classList.remove('focus')); // TODO test me
-    tinyMCE.activeEditor.on('change', () => tinymce.activeEditor.save()); // TODO test me
+  }
+
+  _initWysiwyg(editor) {
+    this._editor = editor;
+    editor.on('focus', () => editor.editorContainer.classList.add('focus'));
+    editor.on('blur', () => editor.editorContainer.classList.remove('focus'));
+    editor.on('change', () => editor.save());
+  }
+
+  _destroyWysiwyg() {
+    if (this._editor) {
+      this._editor.destroy();
+    }
   }
 
   _registerVlLinkToolbar(editor) {
-    editor.ui.registry.addButton('vlLink', vlLinkToolbar);
+    editor.ui.registry.addButton('vlLink', new VlLinkToolbarFactory().create(editor));
+  }
+
+  _errorChangedCallback(oldValue, newValue) {
+    this.__toggleValidationClass(newValue, 'error');
+  }
+
+  _successChangedCallback(oldValue, newValue) {
+    this.__toggleValidationClass(newValue, 'success');
+  }
+
+  _richChangedCallback(oldValue, newValue) {
+    if (newValue != undefined) {
+      if (this.isConnected) {
+        this._configureWysiwyg();
+      }
+    } else {
+      this._destroyWysiwyg();
+    }
+  }
+
+  __toggleValidationClass(value, clazz) {
+    if (this.isRich) {
+      awaitUntil(() => this._editor && this._editor.getContainer()).then(() => {
+        this._editor.getContainer().classList.toggle(clazz);
+        this._editor.getBody().classList.toggle(clazz);
+      });
+    }
   }
 }
 

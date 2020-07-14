@@ -9,16 +9,7 @@ class VlTextarea extends VlElement {
   }
 
   async getValue() {
-    const rich = await this.isRich();
-    if (rich) {
-      await this._switchToWysiwygiframe();
-      const body = await this._wysiwygBodyElement();
-      const text = await body.getText();
-      await this._switchToDefault();
-      return text;
-    } else {
-      return this.getAttribute('value');
-    }
+    return this.getAttribute('value');
   }
 
   async isBlock() {
@@ -70,6 +61,29 @@ class VlTextarea extends VlElement {
       await this._switchToDefault();
     } else {
       await super.sendKeys(text);
+    }
+  }
+
+  async copyPasteValue() {
+    const rich = await this.isRich();
+    if (rich) {
+      await this._switchToWysiwygiframe();
+      const body = await this._wysiwygBodyElement();
+      await body.click();
+      await body.sendKeys(Key.CONTROL + 'a');
+      await body.sendKeys(Key.COMMAND + 'a');
+      await body.sendKeys(Key.CONTROL + 'c');
+      await body.sendKeys(Key.COMMAND + 'c');
+      await body.sendKeys(Key.CONTROL + 'v');
+      await body.sendKeys(Key.COMMAND + 'v');
+      await this._switchToDefault();
+    } else {
+      await textarea.sendKeys(Key.CONTROL + 'a');
+      await textarea.sendKeys(Key.COMMAND + 'a');
+      await textarea.sendKeys(Key.CONTROL + 'c');
+      await textarea.sendKeys(Key.COMMAND + 'c');
+      await textarea.sendKeys(Key.CONTROL + 'v');
+      await textarea.sendKeys(Key.COMMAND + 'v');
     }
   }
 
@@ -151,19 +165,6 @@ class VlTextarea extends VlElement {
 
   async deactivateBlockquote() {
     await this._deactivateToolbar('Blockquote');
-  }
-
-  async getInnerHTML() {
-    const rich = await this.isRich();
-    if (rich) {
-      await this._switchToWysiwygiframe();
-      const body = await this._wysiwygBodyElement();
-      const html = await body.getAttribute('innerHTML');
-      await this._switchToDefault();
-      return html;
-    } else {
-      return super.getInnerHTML();
-    }
   }
 
   async getLinkToolbarModal() {
