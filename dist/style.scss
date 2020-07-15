@@ -24,6 +24,8 @@
 $focus-color: #ffc515;
 
 .tox {
+    min-height: 60px;
+
     &.error {
         border-color: $vl-error-color;
         box-shadow: 0 0 0 0.1rem $vl-error-color;
