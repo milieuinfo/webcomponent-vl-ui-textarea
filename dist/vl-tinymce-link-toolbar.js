@@ -25,7 +25,7 @@ export class VlLinkToolbarFactory {
         const modal = parent.querySelector('vl-textarea-modal');
         customElements.whenDefined('vl-textarea-modal').then(() => {
           const selectedNode = editor.selection.getNode();
-          const selectedText = editor.selection.getContent();
+          const selectedText = editor.selection.getContent({format: 'text'});
 
           if (selectedNode && selectedNode.href) {
             modal.text = selectedNode.textContent;
@@ -87,7 +87,7 @@ class VlTextareaModal extends vlElement(HTMLElement) {
   }
 
   connectedCallback() {
-    this._modal.on('close', () => this.clear());
+    this._modal.on('close', () => setTimeout(() => this.clear()));
   }
 
   get text() {

@@ -87,6 +87,21 @@ class VlTextarea extends VlElement {
     }
   }
 
+  async selectValue() {
+    const rich = await this.isRich();
+    if (rich) {
+      await this._switchToWysiwygiframe();
+      const body = await this._wysiwygBodyElement();
+      await body.click();
+      await body.sendKeys(Key.CONTROL + 'a');
+      await body.sendKeys(Key.COMMAND + 'a');
+      await this._switchToDefault();
+    } else {
+      await textarea.sendKeys(Key.CONTROL + 'a');
+      await textarea.sendKeys(Key.COMMAND + 'a');
+    }
+  }
+
   async activateBold() {
     await this._activateToolbar('Bold');
   }
