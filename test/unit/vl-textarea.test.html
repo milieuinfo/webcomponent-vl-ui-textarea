@@ -88,6 +88,12 @@
           });
         });
       });
+
+      test('het wysiwyg blur event zal een change event triggeren op de textarea', (done) => {
+        const textarea = fixture('vl-textarea-rich-fixture').querySelector('textarea');
+        textarea.addEventListener('change', () => done());
+        textarea._editor.fire('blur');
+      });
     });
   </script>
 </body>
