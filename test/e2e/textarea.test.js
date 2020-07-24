@@ -183,7 +183,6 @@ describe('vl-textarea', async () => {
     await textInputField.setValue(text);
     await linkInputField.setValue(link);
     await modal.submit();
-    await textarea.sendKeys(Key.TAB);
     await assert.eventually.include(textarea.getValue(), `<a target="_blank" href="${link}" rel="noopener">${text}</a>`);
   });
 
@@ -206,6 +205,7 @@ describe('vl-textarea', async () => {
   it('Als gebruiker kan ik de link modal annuleren en zullen bij het opnieuw openen van de link modal de input velden leeg zijn', async () => {
     const textarea = await vlTextareaPage.getTextareaRich();
     await textarea.clear();
+    await assert.eventually.isEmpty(textarea.getValue());
     await textarea.addLink();
     const modal = await textarea.getLinkToolbarModal();
     const contentElements = await modal.getContentSlotElements();
@@ -260,7 +260,6 @@ describe('vl-textarea', async () => {
       await assert.eventually.equal(textInputField.getValue(), text);
       await linkInputField.setValue(link);
       await modal.submit();
-      await textarea.sendKeys(Key.TAB);
       await assert.eventually.include(textarea.getValue(), `<a target="_blank" href="${link}" rel="noopener">${text}</a>`);
     }
   });
@@ -281,7 +280,6 @@ describe('vl-textarea', async () => {
       await assert.eventually.equal(textInputField.getValue(), text);
       await linkInputField.setValue(link);
       await modal.submit();
-      await textarea.sendKeys(Key.TAB);
       await assert.eventually.include(textarea.getValue(), `<a target="_blank" href="${link}" rel="noopener">this is a &lt;sp&eacute;c&icirc;&agrave;l&gt; link!</a>`);
     }
   });
@@ -300,14 +298,12 @@ describe('vl-textarea', async () => {
       await textInputField.setValue(text);
       await linkInputField.setValue(link);
       await modal.submit();
-      await textarea.sendKeys(Key.TAB);
       await assert.eventually.include(textarea.getValue(), `<a target="_blank" href="${link}" rel="noopener">${text}</a>`);
       await textarea.selectValue();
       await textarea.addLink();
       link = 'https://www.vlaanderen.be';
       await linkInputField.setValue(link);
       await modal.submit();
-      await textarea.sendKeys(Key.TAB);
       await assert.eventually.include(textarea.getValue(), `<a target="_blank" href="${link}" rel="noopener">${text}</a>`);
     }
   });

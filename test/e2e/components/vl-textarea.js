@@ -1,4 +1,4 @@
-const {VlElement} = require('vl-ui-core').Test;
+const {VlElement, Config} = require('vl-ui-core').Test;
 const {By, Key} = require('vl-ui-core').Test.Setup;
 const {VlModal} = require('vl-ui-modal').Test;
 
@@ -9,6 +9,7 @@ class VlTextarea extends VlElement {
   }
 
   async getValue() {
+    await this.sendKeys(Key.TAB);
     return this.getAttribute('value');
   }
 
@@ -42,7 +43,6 @@ class VlTextarea extends VlElement {
       await this._switchToWysiwygiframe();
       const body = await this._wysiwygBodyElement();
       await body.clear();
-      await body.sendKeys(Key.TAB);
       await this._switchToDefault();
     } else {
       await super.clear();
@@ -54,9 +54,8 @@ class VlTextarea extends VlElement {
     if (rich) {
       await this._switchToWysiwygiframe();
       const body = await this._wysiwygBodyElement();
-      await body.sendKeys('');
+      Config.browserName == 'chrome' ? await body.sendKeys('') : await body.click();
       await body.sendKeys(text);
-      await body.sendKeys(Key.TAB);
       await this._switchToDefault();
     } else {
       await super.sendKeys(text);
@@ -68,14 +67,13 @@ class VlTextarea extends VlElement {
     if (rich) {
       await this._switchToWysiwygiframe();
       const body = await this._wysiwygBodyElement();
-      await body.sendKeys('');
+      Config.browserName == 'chrome' ? await body.sendKeys('') : await body.click();
       await body.sendKeys(Key.CONTROL + 'a');
       await body.sendKeys(Key.COMMAND + 'a');
       await body.sendKeys(Key.CONTROL + 'c');
       await body.sendKeys(Key.COMMAND + 'c');
       await body.sendKeys(Key.CONTROL + 'v');
       await body.sendKeys(Key.COMMAND + 'v');
-      await body.sendKeys(Key.TAB);
       await this._switchToDefault();
     } else {
       await textarea.sendKeys(Key.CONTROL + 'a');
@@ -92,7 +90,7 @@ class VlTextarea extends VlElement {
     if (rich) {
       await this._switchToWysiwygiframe();
       const body = await this._wysiwygBodyElement();
-      await body.sendKeys('');
+      Config.browserName == 'chrome' ? await body.sendKeys('') : await body.click();
       await body.sendKeys(Key.CONTROL + 'a');
       await body.sendKeys(Key.COMMAND + 'a');
       await this._switchToDefault();
@@ -152,7 +150,6 @@ class VlTextarea extends VlElement {
 
   async addHorizontalLine() {
     await this._clickToolbar('Horizontal line');
-    await this.sendKeys(Key.TAB);
   }
 
   async addNumberedList() {
@@ -217,7 +214,6 @@ class VlTextarea extends VlElement {
     const active = await button.getAttribute('aria-pressed');
     if (active == 'false') {
       await button.click();
-      await this.sendKeys(Key.TAB);
     }
   }
 
@@ -233,7 +229,6 @@ class VlTextarea extends VlElement {
   async _clickToolbarList(type) {
     const button = await this._wysiwygToolbarListButton(type);
     await button.click();
-    await this.sendKeys(Key.TAB);
   }
 
   async _deactivateToolbar(type) {
