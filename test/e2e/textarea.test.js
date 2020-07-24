@@ -108,39 +108,35 @@ describe('vl-textarea', async () => {
   });
 
   it('Als gebruiker kan ik titels toevoegen', async () => {
-    if (Config.browserName != 'chrome') {
-      const textarea = await vlTextareaPage.getTextareaRich();
-      await textarea.clear();
-      const text = 'title';
-      await textarea.sendKeys(text);
-      await assert.eventually.include(textarea.getValue(), `${text}`);
-      await textarea.activateH1();
-      await assert.eventually.include(textarea.getValue(), `<h1>${text}</h1>`);
-      await textarea.activateH2();
-      await assert.eventually.include(textarea.getValue(), `<h2>${text}</h2>`);
-      await textarea.activateH3();
-      await assert.eventually.include(textarea.getValue(), `<h3>${text}</h3>`);
-      await textarea.activateH4();
-      await assert.eventually.include(textarea.getValue(), `<h4>${text}</h4>`);
-      await textarea.activateH5();
-      await assert.eventually.include(textarea.getValue(), `<h5>${text}</h5>`);
-      await textarea.activateH6();
-      await assert.eventually.include(textarea.getValue(), `<h6>${text}</h6>`);
-    }
+    const textarea = await vlTextareaPage.getTextareaRich();
+    await textarea.clear();
+    const text = 'title';
+    await textarea.sendKeys(text);
+    await assert.eventually.include(textarea.getValue(), `${text}`);
+    await textarea.activateH1();
+    await assert.eventually.include(textarea.getValue(), `<h1>${text}</h1>`);
+    await textarea.activateH2();
+    await assert.eventually.include(textarea.getValue(), `<h2>${text}</h2>`);
+    await textarea.activateH3();
+    await assert.eventually.include(textarea.getValue(), `<h3>${text}</h3>`);
+    await textarea.activateH4();
+    await assert.eventually.include(textarea.getValue(), `<h4>${text}</h4>`);
+    await textarea.activateH5();
+    await assert.eventually.include(textarea.getValue(), `<h5>${text}</h5>`);
+    await textarea.activateH6();
+    await assert.eventually.include(textarea.getValue(), `<h6>${text}</h6>`);
   });
 
   it('Als gebruiker kan ik een quote tekst toevoegen', async () => {
-    if (Config.browserName != 'chrome') {
-      const textarea = await vlTextareaPage.getTextareaRich();
-      await textarea.clear();
-      const text = 'quote';
-      await textarea.sendKeys(text);
-      await assert.eventually.include(textarea.getValue(), `${text}`);
-      await textarea.activateBlockquote();
-      await assert.eventually.include(textarea.getValue(), `<blockquote>\n<p>${text}</p>\n</blockquote>`);
-      await textarea.deactivateBlockquote();
-      await assert.eventually.include(textarea.getValue(), `${text}`);
-    }
+    const textarea = await vlTextareaPage.getTextareaRich();
+    await textarea.clear();
+    const text = 'quote';
+    await textarea.sendKeys(text);
+    await assert.eventually.include(textarea.getValue(), `${text}`);
+    await textarea.activateBlockquote();
+    await assert.eventually.include(textarea.getValue(), `<blockquote>\n<p>${text}</p>\n</blockquote>`);
+    await textarea.deactivateBlockquote();
+    await assert.eventually.include(textarea.getValue(), `${text}`);
   });
 
   it('Als gebruiker kan ik een horizontale lijn tag toevoegen', async () => {
