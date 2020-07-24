@@ -42,25 +42,24 @@
     "vl-ui-core": "^5.6.1",
     "vl-ui-form-grid": "^3.0.4",
     "vl-ui-form-message": "^5.0.3",
-    "vl-ui-icon": "^5.1.0",
     "vl-ui-modal": "^3.0.9",
-    "vl-ui-input-field": "github:milieuinfo/webcomponent-vl-ui-input-field#validity"
+    "vl-ui-input-field": "^3.2.1"
   },
   "peerDependencies": {
-    "vl-ui-core": "^5.6.0",
-    "tinymce": "5.4.1"
+    "tinymce": "5.4.1",
+    "vl-ui-button": "^5.0.5",
+    "vl-ui-core": "^5.6.1",
+    "vl-ui-form-grid": "^3.0.4",
+    "vl-ui-form-message": "^5.0.3",
+    "vl-ui-modal": "^3.0.9",
+    "vl-ui-input-field": "^3.2.1"
   },
   "devDependencies": {
     "@govflanders/vl-ui-button": "^3.9.2",
     "@govflanders/vl-ui-textarea": "^3.9.1",
     "@govflanders/vl-ui-titles": "^3.9.1",
     "@govflanders/vl-ui-typography": "^3.9.2",
-    "vl-ui-button": "^5.0.5",
-    "vl-ui-form-grid": "^3.0.4",
-    "vl-ui-form-message": "^5.0.3",
     "vl-ui-icon": "^5.1.0",
-    "vl-ui-input-field": "github:milieuinfo/webcomponent-vl-ui-input-field#validity",
-    "vl-ui-modal": "^3.0.9",
-    "vl-ui-util": "github:milieuinfo/webcomponent-vl-ui-util#inline-style-build"
+    "vl-ui-util": "^5.2.10"
   }
 }
