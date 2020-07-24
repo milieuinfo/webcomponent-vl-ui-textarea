@@ -179,6 +179,7 @@ describe('vl-textarea', async () => {
     await textInputField.setValue(text);
     await linkInputField.setValue(link);
     await modal.submit();
+    await textarea.sendKeys(Key.TAB);
     await assert.eventually.include(textarea.getValue(), `<a target="_blank" href="${link}" rel="noopener">${text}</a>`);
   });
 
@@ -252,6 +253,7 @@ describe('vl-textarea', async () => {
     await assert.eventually.equal(textInputField.getValue(), text);
     await linkInputField.setValue(link);
     await modal.submit();
+    await textarea.sendKeys(Key.TAB);
     await assert.eventually.include(textarea.getValue(), `<a target="_blank" href="${link}" rel="noopener">${text}</a>`);
   });
 
@@ -270,6 +272,7 @@ describe('vl-textarea', async () => {
     await assert.eventually.equal(textInputField.getValue(), text);
     await linkInputField.setValue(link);
     await modal.submit();
+    await textarea.sendKeys(Key.TAB);
     await assert.eventually.include(textarea.getValue(), `<a target="_blank" href="${link}" rel="noopener">this is a &lt;sp&eacute;c&icirc;&agrave;l&gt; link!</a>`);
   });
 
@@ -286,12 +289,14 @@ describe('vl-textarea', async () => {
     await textInputField.setValue(text);
     await linkInputField.setValue(link);
     await modal.submit();
+    await textarea.sendKeys(Key.TAB);
     await assert.eventually.include(textarea.getValue(), `<a target="_blank" href="${link}" rel="noopener">${text}</a>`);
     await textarea.selectValue();
     await textarea.addLink();
     link = 'https://www.vlaanderen.be';
     await linkInputField.setValue(link);
     await modal.submit();
+    await textarea.sendKeys(Key.TAB);
     await assert.eventually.include(textarea.getValue(), `<a target="_blank" href="${link}" rel="noopener">${text}</a>`);
   });
 });

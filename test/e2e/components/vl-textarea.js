@@ -58,6 +58,7 @@ class VlTextarea extends VlElement {
       const body = await this._wysiwygBodyElement();
       await body.click();
       await body.sendKeys(text);
+      await body.sendKeys(Key.TAB);
       await this._switchToDefault();
     } else {
       await super.sendKeys(text);
@@ -76,6 +77,7 @@ class VlTextarea extends VlElement {
       await body.sendKeys(Key.COMMAND + 'c');
       await body.sendKeys(Key.CONTROL + 'v');
       await body.sendKeys(Key.COMMAND + 'v');
+      await body.sendKeys(Key.TAB);
       await this._switchToDefault();
     } else {
       await textarea.sendKeys(Key.CONTROL + 'a');
@@ -216,6 +218,7 @@ class VlTextarea extends VlElement {
     const active = await button.getAttribute('aria-pressed');
     if (active == 'false') {
       await button.click();
+      await this.sendKeys(Key.TAB);
     }
   }
 
@@ -226,11 +229,13 @@ class VlTextarea extends VlElement {
   async _clickToolbar(type) {
     const button = await this._wysiwygToolbarButton(type);
     await button.click();
+    await this.sendKeys(Key.TAB);
   }
 
   async _clickToolbarList(type) {
     const button = await this._wysiwygToolbarListButton(type);
     await button.click();
+    await this.sendKeys(Key.TAB);
   }
 
   async _deactivateToolbar(type) {
