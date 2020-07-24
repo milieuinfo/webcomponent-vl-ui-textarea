@@ -41,10 +41,8 @@ class VlTextarea extends VlElement {
     if (rich) {
       await this._switchToWysiwygiframe();
       const body = await this._wysiwygBodyElement();
-      await body.click();
-      await body.sendKeys(Key.CONTROL + 'a');
-      await body.sendKeys(Key.COMMAND + 'a');
-      await body.sendKeys(Key.DELETE);
+      await body.clear();
+      await body.sendKeys(Key.TAB);
       await this._switchToDefault();
     } else {
       await super.clear();
@@ -56,7 +54,7 @@ class VlTextarea extends VlElement {
     if (rich) {
       await this._switchToWysiwygiframe();
       const body = await this._wysiwygBodyElement();
-      await body.click();
+      await body.sendKeys('');
       await body.sendKeys(text);
       await body.sendKeys(Key.TAB);
       await this._switchToDefault();
@@ -70,7 +68,7 @@ class VlTextarea extends VlElement {
     if (rich) {
       await this._switchToWysiwygiframe();
       const body = await this._wysiwygBodyElement();
-      await body.click();
+      await body.sendKeys('');
       await body.sendKeys(Key.CONTROL + 'a');
       await body.sendKeys(Key.COMMAND + 'a');
       await body.sendKeys(Key.CONTROL + 'c');
@@ -94,7 +92,7 @@ class VlTextarea extends VlElement {
     if (rich) {
       await this._switchToWysiwygiframe();
       const body = await this._wysiwygBodyElement();
-      await body.click();
+      await body.sendKeys('');
       await body.sendKeys(Key.CONTROL + 'a');
       await body.sendKeys(Key.COMMAND + 'a');
       await this._switchToDefault();
@@ -154,6 +152,7 @@ class VlTextarea extends VlElement {
 
   async addHorizontalLine() {
     await this._clickToolbar('Horizontal line');
+    await this.sendKeys(Key.TAB);
   }
 
   async addNumberedList() {
@@ -229,7 +228,6 @@ class VlTextarea extends VlElement {
   async _clickToolbar(type) {
     const button = await this._wysiwygToolbarButton(type);
     await button.click();
-    await this.sendKeys(Key.TAB);
   }
 
   async _clickToolbarList(type) {
