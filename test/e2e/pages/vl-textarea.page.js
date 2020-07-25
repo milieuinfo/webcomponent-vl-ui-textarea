@@ -1,11 +1,7 @@
+const {Page, VlElement, Config} = require('vl-ui-core').Test;
 const VlTextarea = require('../components/vl-textarea');
-const {Page, Config} = require('vl-ui-core').Test;
 
 class VlTextareaPage extends Page {
-  async _getTextarea(selector) {
-    return new VlTextarea(this.driver, selector);
-  }
-
   async getTextarea() {
     return this._getTextarea('#textarea');
   }
@@ -30,8 +26,26 @@ class VlTextareaPage extends Page {
     return this._getTextarea('#textarea-focus');
   }
 
+  async getTextareaRich() {
+    return this._getTextarea('#textarea-rich');
+  }
+
+  async getTextareaRichLink() {
+    return this._getTextarea('#textarea-rich-link');
+  }
+
+  async getTextareaRichShadowDOM() {
+    const element = await new VlElement(this.driver, 'vl-rich-textarea');
+    const textarea = await this.driver.executeScript('return arguments[0].shadowRoot.querySelector("textarea")', element);
+    return new VlTextarea(this.driver, textarea);
+  }
+
   async load() {
     await super.load(Config.baseUrl + '/demo/vl-textarea.html');
+  }
+
+  async _getTextarea(selector) {
+    return new VlTextarea(this.driver, selector);
   }
 }
 

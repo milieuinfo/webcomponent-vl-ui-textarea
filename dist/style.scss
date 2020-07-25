@@ -12,8 +12,110 @@
 // Components
 // ==========================================================================
 @import "vl-ui-textarea/src/scss/textarea";
+@import "vl-ui-typography/src/scss/typography";
+@import "vl-ui-titles/src/scss/titles";
+@import "vl-ui-button/src/scss/button";
 
 // ==========================================================================
 // Util
 // ==========================================================================
 @import "vl-ui-util/src/scss/util";
+
+$focus-color: #ffc515;
+
+.tox {
+    min-height: 60px;
+
+    &.error {
+        border-color: $vl-error-color;
+        box-shadow: 0 0 0 0.1rem $vl-error-color;
+        background-color: $vl-error-secondary-color;
+
+        &:hover {
+            box-shadow: none;
+        }
+
+        iframe {
+            background-color: $vl-error-secondary-color;
+        }
+
+        .tox-toolbar__primary {
+            box-shadow: inset 0px -1px 0px 0px $vl-error-color;
+
+            .tox-toolbar__group {
+                border-color: $vl-error-color !important;
+            }
+        }
+    }
+
+    &.success {
+        border-color: $vl-limeade;
+        box-shadow: 0 0 0 0.1rem $vl-limeade;
+        background-color: $vl-rum-swizzle;
+
+        &:hover {
+            box-shadow: none;
+        }
+
+        iframe {
+            background-color: $vl-rum-swizzle;
+        }
+
+        .tox-toolbar__primary {
+            box-shadow: inset 0px -1px 0px 0px $vl-limeade;
+
+            .tox-toolbar__group {
+                border-color: $vl-limeade !important;
+            }
+        }
+    }
+
+    &.focus {
+        outline: 1px solid $focus-color !important;
+        border: 1px solid $focus-color !important;
+
+
+        .tox-toolbar__primary {
+            box-shadow: inset 0px -1px 0px 0px $focus-color !important;
+
+            .tox-toolbar__group {
+                border-color: $focus-color !important;
+            }
+        }
+    }
+
+    .tox-toolbar__group {
+        border-color: #cbd2da !important;
+    }
+    
+    .tox-toolbar__primary {
+        background: none !important;
+        box-shadow: inset 0px -1px 0px 0px #cbd2da;
+    }
+    
+    .tox-statusbar {
+        position: absolute !important;
+        bottom: 0px !important;
+        right: 0px !important;
+        border-top: none !important;
+        background: transparent !important;
+    }
+
+    iframe {
+        padding: 0rem 1rem !important;
+        top: 0px;
+        left: 0px;
+        bottom: 0px;
+        right: 0px;
+    }
+}
+
+.mce-content-body {
+    &.error {
+        background-color: $vl-error-secondary-color;
+    }
+
+    &.success {
+        background-color: $vl-rum-swizzle;
+    }
+}
