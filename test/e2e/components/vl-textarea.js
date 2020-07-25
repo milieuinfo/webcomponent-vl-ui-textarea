@@ -9,7 +9,7 @@ class VlTextarea extends VlElement {
   }
 
   async getValue() {
-    await this.sendKeys(Key.TAB);
+    await this.driver.executeScript('arguments[0].editor && arguments[0].editor.save()', this);
     return this.getAttribute('value');
   }
 
@@ -68,20 +68,20 @@ class VlTextarea extends VlElement {
       await this._switchToWysiwygiframe();
       const body = await this._wysiwygBodyElement();
       Config.browserName == 'chrome' ? await body.sendKeys('') : await body.click();
-      await body.sendKeys(Key.CONTROL + 'a');
-      await body.sendKeys(Key.COMMAND + 'a');
-      await body.sendKeys(Key.CONTROL + 'c');
-      await body.sendKeys(Key.COMMAND + 'c');
-      await body.sendKeys(Key.CONTROL + 'v');
-      await body.sendKeys(Key.COMMAND + 'v');
+      await body.sendKeys(Key.SHIFT, Key.ARROW_UP);
+      await body.sendKeys(Key.CONTROL, 'c');
+      await body.sendKeys(Key.COMMAND, 'c');
+      await body.sendKeys(Key.ARROW_RIGHT);
+      await body.sendKeys(Key.CONTROL, 'v');
+      await body.sendKeys(Key.COMMAND, 'v');
       await this._switchToDefault();
     } else {
-      await textarea.sendKeys(Key.CONTROL + 'a');
-      await textarea.sendKeys(Key.COMMAND + 'a');
-      await textarea.sendKeys(Key.CONTROL + 'c');
-      await textarea.sendKeys(Key.COMMAND + 'c');
-      await textarea.sendKeys(Key.CONTROL + 'v');
-      await textarea.sendKeys(Key.COMMAND + 'v');
+      await body.sendKeys(Key.SHIFT, Key.ARROW_UP);
+      await body.sendKeys(Key.CONTROL, 'c');
+      await body.sendKeys(Key.COMMAND, 'c');
+      await body.sendKeys(Key.ARROW_RIGHT);
+      await body.sendKeys(Key.CONTROL, 'v');
+      await body.sendKeys(Key.COMMAND, 'v');
     }
   }
 
@@ -91,12 +91,10 @@ class VlTextarea extends VlElement {
       await this._switchToWysiwygiframe();
       const body = await this._wysiwygBodyElement();
       Config.browserName == 'chrome' ? await body.sendKeys('') : await body.click();
-      await body.sendKeys(Key.CONTROL + 'a');
-      await body.sendKeys(Key.COMMAND + 'a');
+      await body.sendKeys(Key.SHIFT, Key.ARROW_UP);
       await this._switchToDefault();
     } else {
-      await textarea.sendKeys(Key.CONTROL + 'a');
-      await textarea.sendKeys(Key.COMMAND + 'a');
+      await body.sendKeys(Key.SHIFT, Key.ARROW_UP);
     }
   }
 

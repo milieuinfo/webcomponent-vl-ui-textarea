@@ -46,6 +46,10 @@ export class VlTextarea extends nativeVlElement(HTMLTextAreaElement) {
     return this.hasAttribute('data-vl-rich');
   }
 
+  get editor() {
+    return this._editor;
+  }
+
   get _classPrefix() {
     return 'vl-textarea--';
   }

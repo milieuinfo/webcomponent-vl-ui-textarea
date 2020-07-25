@@ -30,6 +30,10 @@ class VlTextareaPage extends Page {
     return this._getTextarea('#textarea-rich');
   }
 
+  async getTextareaRichLink() {
+    return this._getTextarea('#textarea-rich-link');
+  }
+
   async getTextareaRichShadowDOM() {
     const element = await new VlElement(this.driver, 'vl-rich-textarea');
     const textarea = await this.driver.executeScript('return arguments[0].shadowRoot.querySelector("textarea")', element);

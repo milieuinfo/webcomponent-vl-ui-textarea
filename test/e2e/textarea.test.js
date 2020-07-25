@@ -229,6 +229,7 @@ describe('vl-textarea', async () => {
     if (Config.browserName != 'chrome') {
       const textarea = await vlTextareaPage.getTextareaRich();
       await textarea.clear();
+      await assert.eventually.isEmpty(textarea.getValue());
       const text = 'text';
       await textarea.sendKeys(text);
       await assert.eventually.include(textarea.getValue(), `<p>${text}</p>`);
@@ -245,66 +246,50 @@ describe('vl-textarea', async () => {
   });
 
   it('Als gebruiker kan ik een tekst selecteren en vervolgens een link toevoegen zonder de tekst opnieuw te moeten invullen', async () => {
-    if (Config.browserName != 'chrome') {
-      const textarea = await vlTextareaPage.getTextareaRich();
-      await textarea.clear();
-      const text = 'this is a link!';
-      const link = 'https://www.google.be';
-      await textarea.setValue(text);
-      await textarea.selectValue();
-      await textarea.addLink();
-      const modal = await textarea.getLinkToolbarModal();
-      const contentElements = await modal.getContentSlotElements();
-      const textInputField = await new VlInputField(driver, await contentElements[0].findElement(By.css('#text')));
-      const linkInputField = await new VlInputField(driver, await contentElements[0].findElement(By.css('#url')));
-      await assert.eventually.equal(textInputField.getValue(), text);
-      await linkInputField.setValue(link);
-      await modal.submit();
-      await assert.eventually.include(textarea.getValue(), `<a target="_blank" href="${link}" rel="noopener">${text}</a>`);
-    }
+    const textarea = await vlTextareaPage.getTextareaRichLink();
+    await textarea.clear();
+    const text = 'this is a link!';
+    const link = 'https://www.google.be';
+    await textarea.setValue(text);
+    await textarea.selectValue();
+    await textarea.addLink();
+    const modal = await textarea.getLinkToolbarModal();
+    const contentElements = await modal.getContentSlotElements();
+    const textInputField = await new VlInputField(driver, await contentElements[0].findElement(By.css('#text')));
+    const linkInputField = await new VlInputField(driver, await contentElements[0].findElement(By.css('#url')));
+    await assert.eventually.equal(textInputField.getValue(), text);
+    await linkInputField.setValue(link);
+    await modal.submit();
+    await assert.eventually.include(textarea.getValue(), `<a target="_blank" href="${link}" rel="noopener">${text}</a>`);
   });
 
   it('Als gebruiker kan ik een tekst met speciale characters selecteren en vervolgens een link toevoegen zonder de tekst opnieuw te moeten invullen', async () => {
-    if (Config.browserName != 'chrome') {
-      const textarea = await vlTextareaPage.getTextareaRich();
-      await textarea.clear();
-      const text = 'this is a <spécîàl> link!';
-      const link = 'https://www.google.be';
-      await textarea.setValue(text);
-      await textarea.selectValue();
-      await textarea.addLink();
-      const modal = await textarea.getLinkToolbarModal();
-      const contentElements = await modal.getContentSlotElements();
-      const textInputField = await new VlInputField(driver, await contentElements[0].findElement(By.css('#text')));
-      const linkInputField = await new VlInputField(driver, await contentElements[0].findElement(By.css('#url')));
-      await assert.eventually.equal(textInputField.getValue(), text);
-      await linkInputField.setValue(link);
-      await modal.submit();
-      await assert.eventually.include(textarea.getValue(), `<a target="_blank" href="${link}" rel="noopener">this is a &lt;sp&eacute;c&icirc;&agrave;l&gt; link!</a>`);
-    }
+    const textarea = await vlTextareaPage.getTextareaRichLink();
+    await textarea.clear();
+    const text = 'this is a <spécîàl> link!';
+    const link = 'https://www.google.be';
+    await textarea.setValue(text);
+    await textarea.selectValue();
+    await textarea.addLink();
+    const modal = await textarea.getLinkToolbarModal();
+    const contentElements = await modal.getContentSlotElements();
+    const textInputField = await new VlInputField(driver, await contentElements[0].findElement(By.css('#text')));
+    const linkInputField = await new VlInputField(driver, await contentElements[0].findElement(By.css('#url')));
+    await assert.eventually.equal(textInputField.getValue(), text);
+    await linkInputField.setValue(link);
+    await modal.submit();
+    await assert.eventually.include(textarea.getValue(), `<a target="_blank" href="${link}" rel="noopener">this is a &lt;sp&eacute;c&icirc;&agrave;l&gt; link!</a>`);
   });
 
-  it('Als gebruiker kan ik de een link bewerken', async () => {
-    if (Config.browserName != 'chrome') {
-      const textarea = await vlTextareaPage.getTextareaRich();
-      await textarea.clear();
-      const text = 'link';
-      let link = 'https://www.google.be';
-      await textarea.addLink();
-      const modal = await textarea.getLinkToolbarModal();
-      const contentElements = await modal.getContentSlotElements();
-      const textInputField = await new VlInputField(driver, await contentElements[0].findElement(By.css('#text')));
-      const linkInputField = await new VlInputField(driver, await contentElements[0].findElement(By.css('#url')));
-      await textInputField.setValue(text);
-      await linkInputField.setValue(link);
-      await modal.submit();
-      await assert.eventually.include(textarea.getValue(), `<a target="_blank" href="${link}" rel="noopener">${text}</a>`);
-      await textarea.selectValue();
-      await textarea.addLink();
-      link = 'https://www.vlaanderen.be';
-      await linkInputField.setValue(link);
-      await modal.submit();
-      await assert.eventually.include(textarea.getValue(), `<a target="_blank" href="${link}" rel="noopener">${text}</a>`);
-    }
+  it('Als gebruiker kan ik een link bewerken', async () => {
+    const textarea = await vlTextareaPage.getTextareaRichLink();
+    await textarea.selectValue();
+    await textarea.addLink();
+    const modal = await textarea.getLinkToolbarModal();
+    const contentElements = await modal.getContentSlotElements();
+    const textInputField = await new VlInputField(driver, await contentElements[0].findElement(By.css('#text')));
+    const linkInputField = await new VlInputField(driver, await contentElements[0].findElement(By.css('#url')));
+    await assert.eventually.include(textInputField.getValue(), 'Vlaanderen');
+    await assert.eventually.equal(linkInputField.getValue(), 'https://www.vlaanderen.be/');
   });
 });
