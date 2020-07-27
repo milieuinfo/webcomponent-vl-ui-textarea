@@ -46,6 +46,10 @@ export class VlTextarea extends nativeVlElement(HTMLTextAreaElement) {
     return this.hasAttribute('data-vl-rich');
   }
 
+  get editor() {
+    return this._editor;
+  }
+
   get _classPrefix() {
     return 'vl-textarea--';
   }
@@ -60,7 +64,7 @@ export class VlTextarea extends nativeVlElement(HTMLTextAreaElement) {
       paste_as_text: true,
       powerpaste_word_import: 'clean',
       powerpaste_html_import: 'clean',
-      content_css: '/node_modules/vl-ui-textarea/dist/style.css',
+      content_css: '/src/style.css',
       verify_html: false,
       forced_root_block: 'p',
       body_class: 'vl-typography',
