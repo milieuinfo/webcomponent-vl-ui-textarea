@@ -67,16 +67,16 @@ class VlTextareaModal extends vlElement(HTMLElement) {
       </style>
       <vl-modal id="modal-cl" data-title="Link toevoegen">
         <form id="link-form" slot="content" data-validate-form target="hidden">
-          <div is="vl-form-grid" is-stacked>
-            <div is="vl-form-column" size="12">
+          <div is="vl-form-grid" data-vl-is-stacked>
+            <div is="vl-form-column" data-vl-size="12">
               <label is="vl-form-label" for="text" data-vl-block>Tekst</label>
               <input id="text" is="vl-input-field" placeholder="Link" data-vl-block data-required="true" data-vl-error-message="Gelieve een tekst in te vullen" data-vl-error-placeholder="text-error">
-              <p is="vl-form-validation-message" error data-vl-error-id="text-error"></p>
+              <p is="vl-form-validation-message" data-vl-error data-vl-error-id="text-error"></p>
             </div>
-            <div is="vl-form-column" size="12">
+            <div is="vl-form-column" data-vl-size="12">
               <label is="vl-form-label" for="url" data-vl-block>URL</label>
               <input id="url" is="vl-input-field" placeholder="https://vlaanderen.be" data-vl-block data-required="true" data-vl-error-message="Gelieve een URL in te vullen" data-vl-error-placeholder="url-error">
-              <p is="vl-form-validation-message" error data-vl-error-id="url-error"></p>
+              <p is="vl-form-validation-message" data-vl-error data-vl-error-id="url-error"></p>
             </div>
           </div>
         </form>
