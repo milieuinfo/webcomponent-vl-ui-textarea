@@ -29,7 +29,7 @@
   <script type="module">
     import {awaitUntil} from '/node_modules/vl-ui-core/dist/vl-core.js';
 
-    suite('<vl-textarea>', () => {
+    suite('vl-textarea', () => {
       const sandbox = sinon.createSandbox();
 
       teardown(() => {
@@ -45,9 +45,9 @@
         const textarea = fixture('vl-textarea-fixture');
         ['error', 'disabled', 'block', 'success', 'focus'].forEach((attribuut) => {
           assert.isFalse(textarea.classList.contains('vl-textarea--' + attribuut));
-          textarea.setAttribute(attribuut, '');
+          textarea.setAttribute(`data-vl-${attribuut}`, '');
           assert.isTrue(textarea.classList.contains('vl-textarea--' + attribuut));
-          textarea.removeAttribute(attribuut);
+          textarea.removeAttribute(`data-vl-${attribuut}`);
           assert.isFalse(textarea.classList.contains('vl-textarea--' + attribuut));
         });
       });

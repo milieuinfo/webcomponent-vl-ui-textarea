@@ -8,12 +8,13 @@ import '/node_modules/tinymce/tinymce.min.js';
  * @classdesc De vl-ui-textarea definieert een rechthoekig invoervak in een formulier, waarin de gebruiker over meerdere regels tekst kan invoeren.
  *
  * @extends HTMLTextAreaElement
+ * @mixes nativeVlElement
  *
- * @property {boolean} block - Attribuut wordt gebruikt om ervoor te zorgen dat de textarea getoond wordt als een block element en bijgevolg de breedte van de parent zal aannemen.
- * @property {boolean} error - Attribuut wordt gebruikt om aan te duiden dat de textarea verplicht is of ongeldige tekst bevat.
- * @property {boolean} success - Attribuut wordt gebruikt om aan te duiden dat de textarea correct werd ingevuld.
- * @property {boolean} disabled - Attribuut wordt gebruikt om te voorkomen dat de gebruiker tekst in de textarea kan ingeven.
- * @property {boolean} focus - Attribuut wordt gebruikt om de textarea focus te geven.
+ * @property {boolean} data-vl-block - Attribuut wordt gebruikt om ervoor te zorgen dat de textarea getoond wordt als een block element en bijgevolg de breedte van de parent zal aannemen.
+ * @property {boolean} data-vl-error - Attribuut wordt gebruikt om aan te duiden dat de textarea verplicht is of ongeldige tekst bevat.
+ * @property {boolean} data-vl-success - Attribuut wordt gebruikt om aan te duiden dat de textarea correct werd ingevuld.
+ * @property {boolean} data-vl-disabled - Attribuut wordt gebruikt om te voorkomen dat de gebruiker tekst in de textarea kan ingeven.
+ * @property {boolean} data-vl-focus - Attribuut wordt gebruikt om de textarea focus te geven.
  *
  * @see {@link https://www.github.com/milieuinfo/webcomponent-vl-ui-textarea/releases/latest|Release notes}
  * @see {@link https://www.github.com/milieuinfo/webcomponent-vl-ui-textarea/issues|Issues}
