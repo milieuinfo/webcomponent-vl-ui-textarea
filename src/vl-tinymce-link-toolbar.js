@@ -65,7 +65,7 @@ class VlTextareaModal extends vlElement(HTMLElement) {
           display: none;
         }
       </style>
-      <vl-modal id="modal-cl" data-title="Link toevoegen">
+      <vl-modal id="modal-cl" data-vl-title="Link toevoegen">
         <form id="link-form" slot="content" data-validate-form target="hidden">
           <div is="vl-form-grid" data-vl-is-stacked>
             <div is="vl-form-column" data-vl-size="12">
