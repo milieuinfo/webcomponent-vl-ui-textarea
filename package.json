@@ -46,7 +46,7 @@
     "vl-ui-modal": "^4.0.0"
   },
   "peerDependencies": {
-    "tinymce": "5.4.1",
+    "tinymce": "5.4.2",
     "vl-ui-button": "^5.0.6",
     "vl-ui-core": "^6.0.0",
     "vl-ui-form-grid": "^3.0.6",
