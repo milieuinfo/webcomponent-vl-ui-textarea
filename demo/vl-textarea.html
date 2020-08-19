@@ -4,14 +4,16 @@
 <head>
     <title>vl-ui-textarea voorbeeld</title>
     <script type="module" src="/node_modules/vl-ui-demo/dist/vl-demo-all.js"></script>
+    <script type="module" src="/node_modules/vl-ui-body/dist/vl-body.js"></script>
 
     <script type="module" src="/src/vl-textarea.js"></script>
     <script type="module" src="/demo/vl-rich-textarea.js"></script>
 
     <link rel="stylesheet" type="text/css" href="/src/style.css" />
+    <link rel="stylesheet" type="text/css" href="/node_modules/vl-ui-body/dist/style.css" />
 </head>
 
-<body>
+<body is="vl-body">
     <vl-demo-page data-vl-webcomponent="vl-textarea" data-vl-link="https://overheid.vlaanderen.be/webuniversum/v3/documentation/forms/vl-ui-textarea">
         <vl-demo data-vl-title="Textarea">
             <textarea id="textarea" is="vl-textarea" cols="40" rows="4">foobar</textarea>
