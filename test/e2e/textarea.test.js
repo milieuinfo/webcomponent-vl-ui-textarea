@@ -225,16 +225,17 @@ describe('vl-textarea', async () => {
     await assert.eventually.include(textarea.getValue(), `<p>text</p>\n<p>text</p>`);
   });
 
-  it('Als gebruiker kan ik tekst kopiëren zonder stijl', async () => {
+  it('Als gebruiker kan ik tekst kopiëren met stijl', async () => {
     if (Config.browserName != 'chrome') {
       const textarea = await vlTextareaPage.getTextareaRich();
       await textarea.clear();
       await assert.eventually.isEmpty(textarea.getValue());
+      await textarea.activateBold();
       const text = 'text';
       await textarea.sendKeys(text);
-      await assert.eventually.include(textarea.getValue(), `<p>${text}</p>`);
+      await assert.eventually.include(textarea.getValue(), `<p><b>${text}</b></p>`);
       await textarea.copyPasteValue();
-      await assert.eventually.include(textarea.getValue(), `<p>${text}${text}</p>`);
+      await assert.eventually.include(textarea.getValue(), `<p><b>${text}${text}</b></p>`);
     }
   });
 

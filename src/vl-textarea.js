@@ -62,7 +62,6 @@ export class VlTextarea extends nativeVlElement(HTMLTextAreaElement) {
       resize: true,
       elementpath: false,
       branding: false,
-      paste_as_text: true,
       powerpaste_word_import: 'clean',
       powerpaste_html_import: 'clean',
       content_css: '/src/style.css',
