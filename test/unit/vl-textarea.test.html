@@ -94,6 +94,22 @@
         textarea.addEventListener('change', () => done());
         textarea._editor.fire('blur');
       });
+
+      test('twee keer het error attribuut zetten op een rich textarea resulteert nog steeds in een error', (done) => {
+        const array = ['success', 'error'];
+        array.forEach((attribute, index) => {
+          const textarea = fixture('vl-textarea-rich-fixture').querySelector('textarea');
+          textarea.setAttribute(`data-vl-${attribute}`, '');
+          textarea.setAttribute(`data-vl-${attribute}`, '');
+          awaitUntil(() => textarea._editor && textarea._editor.getContainer()).then(() => {
+            assert.isTrue(textarea._editor.getContainer().classList.contains(attribute));
+            assert.isTrue(textarea._editor.getBody().classList.contains(attribute));
+            if (array.length == ++index) {
+              done();
+            }
+          });
+        });
+      });
     });
   </script>
 </body>
