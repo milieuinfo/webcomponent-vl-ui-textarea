@@ -15,6 +15,7 @@ import 'tinymce/tinymce.min.js';
  * @property {boolean} data-vl-success - Attribuut wordt gebruikt om aan te duiden dat de textarea correct werd ingevuld.
  * @property {boolean} data-vl-disabled - Attribuut wordt gebruikt om te voorkomen dat de gebruiker tekst in de textarea kan ingeven.
  * @property {boolean} data-vl-focus - Attribuut wordt gebruikt om de textarea focus te geven.
+ * @property {(undo | redo | bold | italic | underline | strikethrough | h1 | h2 | h3 | h4 | h5 | h6 | vlLink | blockquote | hr | numlist | bullist | outdent | indent)} {string} [undo redo | bold italic underline strikethrough] data-vl-toolbar - Attribuut bepaalt welke WYSIWYG toolbar items gevisualiseerd worden zodat de toolbar naar wens samengesteld kan worden. Toolbar items kunnen visueel gescheiden worden door een | character.
  *
  * @see {@link https://www.github.com/milieuinfo/webcomponent-vl-ui-textarea/releases/latest|Release notes}
  * @see {@link https://www.github.com/milieuinfo/webcomponent-vl-ui-textarea/issues|Issues}
@@ -55,6 +56,10 @@ export class VlTextarea extends nativeVlElement(HTMLTextAreaElement) {
     return 'vl-textarea--';
   }
 
+  get _toolbar() {
+    return this.getAttribute('toolbar');
+  }
+
   get _wysiwygConfig() {
     return {
       target: this,
@@ -75,7 +80,7 @@ export class VlTextarea extends nativeVlElement(HTMLTextAreaElement) {
         underline: {inline: 'u'},
         strikethrough: {inline: 's'},
       },
-      toolbar: 'undo redo | bold italic underline strikethrough | h1 h2 h3 h4 h5 h6 | vlLink blockquote hr | numlist bullist',
+      toolbar: this._toolbar || 'undo redo | bold italic underline strikethrough',
       setup: (editor) => {
         this._registerVlLinkToolbar(editor);
         this._initWysiwyg(editor);
@@ -99,7 +104,9 @@ export class VlTextarea extends nativeVlElement(HTMLTextAreaElement) {
     this._editor = editor;
     editor.on('focus', () => editor.editorContainer.classList.add('focus'));
     editor.on('blur', () => {
-      editor.editorContainer.classList.remove('focus');
+      if (editor.editorContainer) {
+        editor.editorContainer.classList.remove('focus');
+      }
       editor.save();
       this.dispatchEvent(new Event('change'));
     });
@@ -136,8 +143,10 @@ export class VlTextarea extends nativeVlElement(HTMLTextAreaElement) {
   __toggleValidationClass(value, clazz) {
     if (this.isRich) {
       awaitUntil(() => this._editor && this._editor.getContainer()).then(() => {
-        this._editor.getContainer().classList.toggle(clazz);
-        this._editor.getBody().classList.toggle(clazz);
+        if (this._editor.getContainer()) {
+          this._editor.getContainer().classList.toggle(clazz);
+          this._editor.getBody().classList.toggle(clazz);
+        }
       });
     }
   }
