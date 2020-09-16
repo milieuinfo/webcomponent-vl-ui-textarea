@@ -136,8 +136,8 @@ export class VlTextarea extends nativeVlElement(HTMLTextAreaElement) {
   __toggleValidationClass(value, clazz) {
     if (this.isRich) {
       awaitUntil(() => this._editor && this._editor.getContainer()).then(() => {
-        this._editor.getContainer().classList.toggle(clazz);
-        this._editor.getBody().classList.toggle(clazz);
+        this._toggleClass(this._editor.getContainer(), value, clazz);
+        this._toggleClass(this._editor.getBody(), value, clazz);
       });
     }
   }
