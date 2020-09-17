@@ -98,7 +98,7 @@
 
       test('standaard zal de wysiwyg toolbar enkele default items bevatten', () => {
         const textarea = fixture('vl-textarea-fixture');
-        sandbox.spy(tinyMCE, 'init');
+        sandbox.stub(tinyMCE, 'init');
         textarea.setAttribute('data-vl-rich', '');
         assert(tinyMCE.init.called);
         assert.equal(tinyMCE.init.args[0][0].toolbar, 'undo redo | bold italic underline strikethrough');
@@ -106,7 +106,7 @@
 
       test('het is mogelijk om de wysiwyg toolbar zelf samen te stellen naar wens', () => {
         const textarea = fixture('vl-textarea-fixture');
-        sandbox.spy(tinyMCE, 'init');
+        sandbox.stub(tinyMCE, 'init');
         const toolbar = 'toolbar';
         textarea.setAttribute('data-vl-toolbar', toolbar);
         textarea.setAttribute('data-vl-rich', '');
