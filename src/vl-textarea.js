@@ -97,7 +97,11 @@ export class VlTextarea extends nativeVlElement(HTMLTextAreaElement) {
   _configureWysiwyg() {
     this._addBlockAttribute();
     tinyMCE.baseURL = '/node_modules/tinymce';
-    tinyMCE.init(this._wysiwygConfig);
+    try {
+      tinyMCE.init(this._wysiwygConfig);
+    } catch (e) {
+      console.error(e);
+    }
   }
 
   _initWysiwyg(editor) {
