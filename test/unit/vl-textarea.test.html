@@ -33,6 +33,7 @@
       const sandbox = sinon.createSandbox();
 
       teardown(() => {
+        tinyMCE.editors.forEach((editor) => editor.destroy());
         sandbox.restore();
       });
 
@@ -93,6 +94,24 @@
         const textarea = fixture('vl-textarea-rich-fixture').querySelector('textarea');
         textarea.addEventListener('change', () => done());
         textarea._editor.fire('blur');
+      });
+
+      test('standaard zal de wysiwyg toolbar enkele default items bevatten', () => {
+        const textarea = fixture('vl-textarea-fixture');
+        sandbox.spy(tinyMCE, 'init');
+        textarea.setAttribute('data-vl-rich', '');
+        assert(tinyMCE.init.called);
+        assert.equal(tinyMCE.init.args[0][0].toolbar, 'undo redo | bold italic underline strikethrough');
+      });
+
+      test('het is mogelijk om de wysiwyg toolbar zelf samen te stellen naar wens', () => {
+        const textarea = fixture('vl-textarea-fixture');
+        sandbox.spy(tinyMCE, 'init');
+        const toolbar = 'toolbar';
+        textarea.setAttribute('data-vl-toolbar', toolbar);
+        textarea.setAttribute('data-vl-rich', '');
+        assert(tinyMCE.init.called);
+        assert.equal(tinyMCE.init.args[0][0].toolbar, toolbar);
       });
 
       test('twee keer het error attribuut zetten op een rich textarea resulteert nog steeds in een error', (done) => {
