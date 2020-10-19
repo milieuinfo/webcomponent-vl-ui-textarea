@@ -63,6 +63,6 @@
     "@govflanders/vl-ui-typography": "^3.11.5",
     "vl-ui-body": "^1.0.3",
     "vl-ui-icon": "^5.2.0",
-    "vl-ui-util": "^5.2.15"
+    "vl-ui-util": "^5.2.17"
   }
 }
