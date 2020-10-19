@@ -129,6 +129,22 @@
           });
         });
       });
+
+      test('kan programmatisch focus activeren', (done) => {
+        const textarea = fixture('vl-textarea-fixture');
+        textarea.addEventListener('focus', () => done());
+        textarea.focus();
+      });
+
+      test('kan programmatisch focus activeren bij een rich variant', (done) => {
+        const textarea = fixture('vl-textarea-rich-fixture').querySelector('textarea');
+        awaitUntil(() => textarea._editor && textarea._editor.getContainer()).then(() => {
+          sandbox.spy(textarea.editor, 'focus');
+          textarea.focus();
+          assert(textarea.editor.focus.called);
+          done();
+        });
+      });
     });
   </script>
 </body>

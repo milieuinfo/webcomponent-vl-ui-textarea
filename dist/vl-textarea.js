@@ -106,6 +106,7 @@ export class VlTextarea extends nativeVlElement(HTMLTextAreaElement) {
 
   _initWysiwyg(editor) {
     this._editor = editor;
+    this.focus = () => editor.focus();
     editor.on('focus', () => editor.editorContainer.classList.add('focus'));
     editor.on('blur', () => {
       if (editor.editorContainer) {

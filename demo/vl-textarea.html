@@ -93,6 +93,11 @@
         <vl-demo data-vl-title="Textarea rich in shadow DOM">
             <vl-rich-textarea></vl-rich-textarea>
         </vl-demo>
+
+        <vl-demo data-vl-title="Textarea rich focus">
+            <textarea id="textarea-rich-focus" is="vl-textarea" cols="40" rows="4" data-vl-rich></textarea>
+            <button is="vl-button" slot="actions" onclick="document.getElementById('textarea-rich-focus').focus();">Focus</button>
+        </vl-demo>
     </vl-demo-page>
 </body>
 
