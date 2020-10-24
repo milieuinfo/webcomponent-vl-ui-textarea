@@ -1,6 +1,11 @@
 import {nativeVlElement, define, awaitUntil} from 'vl-ui-core';
 import {VlLinkToolbarFactory} from 'vl-ui-textarea/dist/vl-tinymce-link-toolbar.src.js';
+import {vlFormValidation, vlFormValidationElement} from 'vl-ui-form-validation';
 import 'tinymce/tinymce.min.js';
+
+Promise.all([
+  vlFormValidation.ready(),
+]).then(() => define('vl-textarea', VlTextarea, {extends: 'textarea'}));
 
 /**
  * VlTextArea
@@ -21,9 +26,9 @@ import 'tinymce/tinymce.min.js';
  * @see {@link https://www.github.com/milieuinfo/webcomponent-vl-ui-textarea/issues|Issues}
  * @see {@link https://webcomponenten.omgeving.vlaanderen.be/demo/vl-textarea.html|Demo}
  */
-export class VlTextarea extends nativeVlElement(HTMLTextAreaElement) {
+export class VlTextarea extends vlFormValidationElement(nativeVlElement(HTMLTextAreaElement)) {
   static get _observedAttributes() {
-    return ['error', 'success'];
+    return vlFormValidation._observedAttributes().concat(['error', 'success']);
   }
 
   static get _observedClassAttributes() {
@@ -95,6 +100,7 @@ export class VlTextarea extends nativeVlElement(HTMLTextAreaElement) {
   }
 
   _configureWysiwyg() {
+    this.disabled = true;
     this._addBlockAttribute();
     tinyMCE.baseURL = '/node_modules/tinymce';
     try {
@@ -119,6 +125,7 @@ export class VlTextarea extends nativeVlElement(HTMLTextAreaElement) {
 
   _destroyWysiwyg() {
     if (this._editor) {
+      this.disabled = false;
       this._editor.destroy();
     }
   }
@@ -156,6 +163,4 @@ export class VlTextarea extends nativeVlElement(HTMLTextAreaElement) {
     }
   }
 }
-
-define('vl-textarea', VlTextarea, {extends: 'textarea'});
 

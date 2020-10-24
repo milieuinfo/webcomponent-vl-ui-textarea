@@ -39,20 +39,22 @@
   "dependencies": {
     "tinymce": "^5.4.2",
     "vl-ui-button": "^5.0.6",
-    "vl-ui-core": "^6.0.0",
+    "vl-ui-core": "milieuinfo/webcomponent-vl-ui-core#form-validation",
     "vl-ui-form": "^1.0.0",
     "vl-ui-form-grid": "^3.0.6",
     "vl-ui-form-message": "^5.0.5",
+    "vl-ui-form-validation": "github:milieuinfo/webcomponent-vl-ui-form-validation#form-validation",
     "vl-ui-input-field": "^3.2.3",
     "vl-ui-modal": "^4.0.0"
   },
   "peerDependencies": {
     "tinymce": "^5.4.2",
     "vl-ui-button": "^5.0.6",
-    "vl-ui-core": "^6.0.0",
+    "vl-ui-core": "milieuinfo/webcomponent-vl-ui-core#form-validation",
     "vl-ui-form": "^1.0.0",
     "vl-ui-form-grid": "^3.0.6",
     "vl-ui-form-message": "^5.0.5",
+    "vl-ui-form-validation": "github:milieuinfo/webcomponent-vl-ui-form-validation#form-validation",
     "vl-ui-input-field": "^3.2.3",
     "vl-ui-modal": "^4.0.0"
   },
@@ -63,6 +65,6 @@
     "@govflanders/vl-ui-typography": "^3.11.5",
     "vl-ui-body": "^1.0.3",
     "vl-ui-icon": "^5.2.0",
-    "vl-ui-util": "^5.2.17"
+    "vl-ui-util": "^5.2.18"
   }
 }
