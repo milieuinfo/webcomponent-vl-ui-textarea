@@ -26,6 +26,14 @@
     </template>
   </test-fixture>
 
+  <test-fixture id="vl-textarea-form-fixture">
+    <template>
+      <form>
+        <textarea id="textarea" is="vl-textarea"></textarea>
+      </form>
+    </template>
+  </test-fixture>
+
   <script type="module">
     import {awaitUntil} from '/node_modules/vl-ui-core/dist/vl-core.js';
 
@@ -144,6 +152,14 @@
           assert(textarea.editor.focus.called);
           done();
         });
+      });
+
+      test('de textarea zal pas de validation dress functie uitvoeren als het onderdeel van een formulier is', () => {
+        sandbox.spy(vl.formValidation, 'dress');
+        fixture('vl-textarea-fixture');
+        assert(vl.formValidation.dress.notCalled);
+        const textarea = fixture('vl-textarea-form-fixture').querySelector('textarea');
+        assert(vl.formValidation.dress.calledWith(textarea.form));
       });
     });
   </script>

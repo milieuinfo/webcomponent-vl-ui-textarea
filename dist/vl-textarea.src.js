@@ -37,6 +37,7 @@ export class VlTextarea extends vlFormValidationElement(nativeVlElement(HTMLText
 
   connectedCallback() {
     this.classList.add('vl-textarea');
+    this._dressFormValidation();
 
     if (this.isRich) {
       this._configureWysiwyg();
