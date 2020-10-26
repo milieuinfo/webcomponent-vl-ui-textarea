@@ -35,6 +35,8 @@
   </test-fixture>
 
   <script type="module">
+    import {VlTextarea} from '../../src/vl-textarea';
+    import {vlFormValidation} from 'vl-ui-form-validation/dist/vl-form-validation';
     import {awaitUntil} from '/node_modules/vl-ui-core/dist/vl-core.js';
 
     suite('vl-textarea', () => {
@@ -152,6 +154,10 @@
           assert(textarea.editor.focus.called);
           done();
         });
+      });
+
+      test('bevat de form validation observed attributes om correcte formulier validatie te realiseren', () => {
+        vlFormValidation._observedAttributes().forEach((attribute) => assert.include(VlTextarea._observedAttributes, attribute));
       });
 
       test('de textarea zal pas de validation dress functie uitvoeren als het onderdeel van een formulier is', () => {
