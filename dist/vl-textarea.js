@@ -114,10 +114,16 @@ export class VlTextarea extends vlFormValidationElement(nativeVlElement(HTMLText
   _initWysiwyg(editor) {
     this._editor = editor;
     this.focus = () => editor.focus();
-    editor.on('focus', () => editor.editorContainer.classList.add('focus'));
+    editor.on('focus', () => {
+      editor.editorContainer.classList.add('focus');
+      editor.getBody().classList.add('focus');
+    });
     editor.on('blur', () => {
       if (editor.editorContainer) {
         editor.editorContainer.classList.remove('focus');
+      }
+      if (editor.getBody) {
+        editor.getBody().classList.remove('focus');
       }
       editor.save();
       this.dispatchEvent(new Event('change'));

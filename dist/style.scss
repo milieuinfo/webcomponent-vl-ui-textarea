@@ -71,7 +71,11 @@ $focus-color: #ffc515;
     &.focus {
         outline: 1px solid $focus-color !important;
         border: 1px solid $focus-color !important;
+        background-color: white;
 
+        iframe {
+            background-color: white;
+        }
 
         .tox-toolbar__primary {
             box-shadow: inset 0px -1px 0px 0px $focus-color !important;
@@ -115,5 +119,9 @@ $focus-color: #ffc515;
 
     &.success {
         background-color: $vl-rum-swizzle;
+    }
+
+    &.focus {
+        background-color: white;
     }
 }
