@@ -4,10 +4,12 @@ const VlTextareaPage = require('./pages/vl-textarea.page');
 const {VlInputField} = require('vl-ui-input-field').Test;
 
 describe('vl-textarea', async () => {
+  let driver;
   let vlTextareaPage;
 
   beforeEach(() => {
-    vlTextareaPage = new VlTextareaPage(getDriver());
+    driver = getDriver();
+    vlTextareaPage = new VlTextareaPage(driver);
     return vlTextareaPage.load();
   });
 
