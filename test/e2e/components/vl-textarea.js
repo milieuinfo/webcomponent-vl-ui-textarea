@@ -54,7 +54,7 @@ class VlTextarea extends VlElement {
     if (rich) {
       await this._switchToWysiwygiframe();
       const body = await this._wysiwygBodyElement();
-      Config.browserName == 'chrome' ? await body.sendKeys('') : await body.click();
+      Config.browserName == 'chrome' || Config.browserName == 'edge' ? await body.sendKeys('') : await body.click();
       await body.sendKeys(text);
       await this._switchToDefault();
     } else {
