@@ -229,7 +229,7 @@ describe('vl-textarea', async () => {
   });
 
   it('als gebruiker kan ik tekst kopiëren met stijl', async () => {
-    if (Config.browserName != 'chrome') {
+    if (Config.browserName != 'chrome' && Config.browserName != 'edge') {
       const textarea = await vlTextareaPage.getTextareaRich();
       await textarea.clear();
       await assert.eventually.isEmpty(textarea.getValue());
