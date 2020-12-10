@@ -11,6 +11,7 @@
 // ==========================================================================
 // Components
 // ==========================================================================
+@import "vl-ui-form-message/src/scss/form-message";
 @import "vl-ui-textarea/src/scss/textarea";
 @import "vl-ui-typography/src/scss/typography";
 @import "vl-ui-titles/src/scss/titles";
@@ -21,74 +22,89 @@
 // ==========================================================================
 @import "vl-ui-util/src/scss/util";
 
-$focus-color: #ffc515;
-
 .tox {
-    &.error {
-        border-color: $vl-error-color;
-        box-shadow: 0 0 0 0.1rem $vl-error-color;
-        background-color: $vl-error-secondary-color;
+    &.tox-tinymce {
+        border-radius: $vl-form-border-radius !important;
+        border: .1rem solid $vl-input-border-color !important;
 
         &:hover {
-            box-shadow: none;
-        }
+            border: .1rem solid $vl-input-hover-border-color !important;
+            box-shadow: 0px 0px 0px .1rem $vl-input-hover-border-color;
 
-        iframe {
-            background-color: $vl-error-secondary-color;
-        }
-
-        .tox-toolbar__primary {
-            box-shadow: inset 0px -1px 0px 0px $vl-error-color;
-
-            .tox-toolbar__group {
-                border-color: $vl-error-color !important;
+            .tox-toolbar__primary {
+                box-shadow: inset 0px -0.1rem 0px 0px $vl-input-hover-border-color;
+            
+                .tox-toolbar__group {
+                    border-color: $vl-input-hover-border-color !important;
+                }
             }
         }
-    }
-
-    &.success {
-        border-color: $vl-limeade;
-        box-shadow: 0 0 0 0.1rem $vl-limeade;
-        background-color: $vl-rum-swizzle;
-
-        &:hover {
-            box-shadow: none;
-        }
-
-        iframe {
-            background-color: $vl-rum-swizzle;
-        }
-
-        .tox-toolbar__primary {
-            box-shadow: inset 0px -1px 0px 0px $vl-limeade;
-
-            .tox-toolbar__group {
-                border-color: $vl-limeade !important;
+    
+        &.focus {
+            outline: none !important;
+            border: .1rem solid $vl-bluey-gray !important;
+            box-shadow: $vl-focus-box-shadow !important;
+            background-color: $vl-page-bg !important;
+    
+            .tox-toolbar__primary {
+                box-shadow: inset 0px -1px 0px 0px $vl-bluey-gray !important;
+    
+                .tox-toolbar__group {
+                    border-color: $vl-bluey-gray !important;
+                }
             }
         }
-    }
-
-    &.focus {
-        outline: 1px solid $focus-color !important;
-        border: 1px solid $focus-color !important;
-
-
-        .tox-toolbar__primary {
-            box-shadow: inset 0px -1px 0px 0px $focus-color !important;
-
-            .tox-toolbar__group {
-                border-color: $focus-color !important;
+        
+        &.error {
+            border-color: $vl-error-color !important;
+            background-color: $vl-error-fg-color;
+    
+            &:hover {
+                box-shadow: 0 0 0 0.1rem $vl-error-color;
+            }
+    
+            iframe {
+                background-color: $vl-error-fg-color;
+            }
+    
+            .tox-toolbar__primary {
+                box-shadow: inset 0px -1px 0px 0px $vl-error-color;
+    
+                .tox-toolbar__group {
+                    border-color: $vl-error-color !important;
+                }
+            }
+        }
+    
+        &.success {
+            border-color: $vl-success-color !important;
+            background-color: $vl-success-fg-color;
+    
+            &:hover {
+                box-shadow: 0 0 0 0.1rem $vl-success-color;
+            }
+    
+            iframe {
+                background-color: $vl-success-fg-color;
+            }
+    
+            .tox-toolbar__primary {
+                box-shadow: inset 0px -1px 0px 0px $vl-success-color;
+    
+                .tox-toolbar__group {
+                    border-color: $vl-success-color !important;
+                }
             }
         }
     }
 
     .tox-toolbar__group {
-        border-color: #cbd2da !important;
+        border-color: $vl-input-border-color !important;
     }
     
     .tox-toolbar__primary {
         background: none !important;
-        box-shadow: inset 0px -1px 0px 0px #cbd2da;
+        box-shadow: inset 0px -1px 0px 0px $vl-input-border-color;
     }
     
     .tox-statusbar {
@@ -110,10 +126,10 @@ $focus-color: #ffc515;
 
 .mce-content-body {
     &.error {
-        background-color: $vl-error-secondary-color;
+        background-color: $vl-error-fg-color;
     }
 
     &.success {
-        background-color: $vl-rum-swizzle;
+        background-color: $vl-success-fg-color;
     }
 }
