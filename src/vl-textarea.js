@@ -1,6 +1,11 @@
 import {nativeVlElement, define, awaitUntil} from '/node_modules/vl-ui-core/dist/vl-core.js';
 import {VlLinkToolbarFactory} from '/src/vl-tinymce-link-toolbar.js';
+import {vlFormValidation, vlFormValidationElement} from '/node_modules/vl-ui-form-validation/dist/vl-form-validation-all.js';
 import '/node_modules/tinymce/tinymce.min.js';
+
+Promise.all([
+  vlFormValidation.ready(),
+]).then(() => define('vl-textarea', VlTextarea, {extends: 'textarea'}));
 
 /**
  * VlTextArea
@@ -21,9 +26,9 @@ import '/node_modules/tinymce/tinymce.min.js';
  * @see {@link https://www.github.com/milieuinfo/webcomponent-vl-ui-textarea/issues|Issues}
  * @see {@link https://webcomponenten.omgeving.vlaanderen.be/demo/vl-textarea.html|Demo}
  */
-export class VlTextarea extends nativeVlElement(HTMLTextAreaElement) {
+export class VlTextarea extends vlFormValidationElement(nativeVlElement(HTMLTextAreaElement)) {
   static get _observedAttributes() {
-    return ['error', 'success'];
+    return vlFormValidation._observedAttributes().concat(['error', 'success']);
   }
 
   static get _observedClassAttributes() {
@@ -32,6 +37,7 @@ export class VlTextarea extends nativeVlElement(HTMLTextAreaElement) {
 
   connectedCallback() {
     this.classList.add('vl-textarea');
+    this._dressFormValidation();
 
     if (this.isRich) {
       this._configureWysiwyg();
@@ -95,6 +101,7 @@ export class VlTextarea extends nativeVlElement(HTMLTextAreaElement) {
   }
 
   _configureWysiwyg() {
+    this.disabled = true;
     this._addBlockAttribute();
     tinyMCE.baseURL = '/node_modules/tinymce';
     try {
@@ -107,10 +114,16 @@ export class VlTextarea extends nativeVlElement(HTMLTextAreaElement) {
   _initWysiwyg(editor) {
     this._editor = editor;
     this.focus = () => editor.focus();
-    editor.on('focus', () => editor.editorContainer.classList.add('focus'));
+    editor.on('focus', () => {
+      editor.editorContainer.classList.add('focus');
+      editor.getBody().classList.add('focus');
+    });
     editor.on('blur', () => {
       if (editor.editorContainer) {
         editor.editorContainer.classList.remove('focus');
+      }
+      if (editor.getBody) {
+        editor.getBody().classList.remove('focus');
       }
       editor.save();
       this.dispatchEvent(new Event('change'));
@@ -119,6 +132,7 @@ export class VlTextarea extends nativeVlElement(HTMLTextAreaElement) {
 
   _destroyWysiwyg() {
     if (this._editor) {
+      this.disabled = false;
       this._editor.destroy();
     }
   }
@@ -156,5 +170,3 @@ export class VlTextarea extends nativeVlElement(HTMLTextAreaElement) {
     }
   }
 }
-
-define('vl-textarea', VlTextarea, {extends: 'textarea'});
