@@ -38,25 +38,25 @@
   },
   "dependencies": {
     "tinymce": "^5.6.2",
-    "vl-ui-button": "^5.0.8",
-    "vl-ui-core": "^7.0.2",
+    "vl-ui-button": "^5.0.9",
+    "vl-ui-core": "^7.1.0",
     "vl-ui-form": "^1.0.3",
-    "vl-ui-form-grid": "^3.0.6",
+    "vl-ui-form-grid": "^3.0.8",
     "vl-ui-form-message": "^5.0.6",
-    "vl-ui-form-validation": "^3.4.0",
-    "vl-ui-input-field": "^3.2.6",
-    "vl-ui-modal": "^4.0.2"
+    "vl-ui-form-validation": "^3.4.2",
+    "vl-ui-input-field": "^3.2.7",
+    "vl-ui-modal": "^4.0.3"
   },
   "peerDependencies": {
     "tinymce": "^5.6.2",
-    "vl-ui-button": "^5.0.8",
-    "vl-ui-core": "^7.0.0",
+    "vl-ui-button": "^5.0.9",
+    "vl-ui-core": "^7.1.0",
     "vl-ui-form": "^1.0.3",
-    "vl-ui-form-grid": "^3.0.6",
+    "vl-ui-form-grid": "^3.0.8",
     "vl-ui-form-message": "^5.0.6",
-    "vl-ui-form-validation": "^3.4.0",
-    "vl-ui-input-field": "^3.2.6",
-    "vl-ui-modal": "^4.0.2"
+    "vl-ui-form-validation": "^3.4.2",
+    "vl-ui-input-field": "^3.2.7",
+    "vl-ui-modal": "^4.0.3"
   },
   "devDependencies": {
     "@govflanders/vl-ui-button": "^3.12.3",
@@ -68,6 +68,6 @@
     "@govflanders/vl-ui-util": "^3.12.3",
     "vl-ui-body": "^1.0.7",
     "vl-ui-icon": "^5.2.1",
-    "vl-ui-util": "^5.3.6"
+    "vl-ui-util": "^5.3.7"
   }
 }
