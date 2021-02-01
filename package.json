@@ -39,7 +39,7 @@
   "dependencies": {
     "tinymce": "^5.6.2",
     "vl-ui-button": "^5.0.9",
-    "vl-ui-core": "^7.1.0",
+    "vl-ui-core": "^7.1.1",
     "vl-ui-form": "^1.0.3",
     "vl-ui-form-grid": "^3.0.8",
     "vl-ui-form-message": "^5.0.6",
