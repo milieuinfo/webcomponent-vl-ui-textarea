@@ -1,5 +1,5 @@
 import {nativeVlElement, define, awaitUntil} from 'vl-ui-core';
-import {VlLinkToolbarFactory} from 'vl-ui-textarea/dist/vl-tinymce-link-toolbar.src.js';
+import {VlLinkToolbarFactory} from '../dist/vl-tinymce-link-toolbar.src.js';
 import {vlFormValidation, vlFormValidationElement} from 'vl-ui-form-validation';
 import 'tinymce/tinymce.min.js';
 

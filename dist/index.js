@@ -1,3 +1,1 @@
-module.exports = {
-  VlTextarea: require('../dist/vl-textarea.src.js').VlTextarea,
-};
+export * from '../dist/vl-textarea.src.js';
