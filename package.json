@@ -1,6 +1,6 @@
 {
   "name": "vl-ui-textarea",
-  "version": "3.3.0",
+  "version": "3.3.1",
   "description": "Gebruik de vl-ui-textarea component om een tekstveld met meerdere lijnen te hebben.",
   "author": "DIDM",
   "license": "MIT",
