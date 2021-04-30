@@ -128,6 +128,9 @@ export class VlTextarea extends vlFormValidationElement(nativeVlElement(HTMLText
       editor.save();
       this.dispatchEvent(new Event('change'));
     });
+    editor.on('init', () => {
+      editor.iframeElement.title = `rich textarea voor ${editor.targetElm.id}, ALT-0 voor hulp`;
+    });
   }
 
   _destroyWysiwyg() {

@@ -5,6 +5,7 @@
     <title>vl-ui-textarea voorbeeld</title>
     <script type="module" src="/node_modules/vl-ui-demo/dist/vl-demo-all.js"></script>
     <script type="module" src="/node_modules/vl-ui-body/dist/vl-body.js"></script>
+    <script type="module" src="/node_modules/vl-ui-form-message/dist/vl-form-message.js"></script>
 
     <script type="module" src="/src/vl-textarea.js"></script>
     <script type="module" src="/demo/vl-rich-textarea.js"></script>
@@ -12,33 +13,40 @@
     <link rel="stylesheet" type="text/css" href="/src/style.css" />
     <link rel="stylesheet" type="text/css" href="/node_modules/vl-ui-body/dist/style.css" />
     <link rel="stylesheet" type="text/css" href="/node_modules/vl-ui-demo/dist/style.css" />
+    <link rel="stylesheet" type="text/css" href="/node_modules/vl-ui-form-message/dist/style.css" />
 </head>
 
 <body is="vl-body">
     <vl-demo-page data-vl-webcomponent="vl-textarea" data-vl-link="https://overheid.vlaanderen.be/webuniversum/v3/documentation/forms/vl-ui-textarea">
         <vl-demo data-vl-title="Textarea">
+            <div><label is="vl-form-label" for="textarea">Textarea</label></div>
             <textarea id="textarea" is="vl-textarea" cols="40" rows="4">foobar</textarea>
         </vl-demo>
 
         <vl-demo data-vl-title="Textarea block">
+            <div><label is="vl-form-label" for="textarea-block">Textarea block</label></div>
             <textarea id="textarea-block" is="vl-textarea" cols="40" rows="4" data-vl-block>foobar</textarea>
         </vl-demo>
 
         <vl-demo data-vl-title="Textarea error">
+            <div><label is="vl-form-label" for="textarea-error">Textarea error</label></div>
             <textarea id="textarea-error" is="vl-textarea" cols="40" rows="4" data-vl-error>foobar</textarea>
             <textarea id="textarea-rich-error" is="vl-textarea" cols="40" rows="4" data-vl-error data-vl-rich>foobar</textarea>
         </vl-demo>
 
         <vl-demo data-vl-title="Textarea success">
+            <div><label is="vl-form-label" for="textarea-success">Textarea success</label></div>
             <textarea id="textarea-success" is="vl-textarea" cols="40" rows="4" data-vl-success>foobar</textarea>
             <textarea id="textarea-rich-success" is="vl-textarea" cols="40" rows="4" data-vl-success data-vl-rich>foobar</textarea>
         </vl-demo>
 
         <vl-demo data-vl-title="Textarea disabled">
+            <div><label is="vl-form-label" for="textarea-disabled">Textarea disabled</label></div>
             <textarea id="textarea-disabled" is="vl-textarea" cols="40" rows="4" disabled>foobar</textarea>
         </vl-demo>
 
         <vl-demo data-vl-title="Textarea focus">
+            <div><label is="vl-form-label" for="textarea-focus">Textarea focus</label></div>
             <textarea id="textarea-focus" is="vl-textarea" cols="40" rows="4" data-vl-focus>foobar</textarea>
         </vl-demo>
 
@@ -62,11 +70,13 @@
                 <p>
                     <ul>
                         <li>unsorted list item</li>
-                        <li>unsorted list item</li>
-                        <ul>
-                            <li>unsorted list subitem</li>
-                            <li>unsorted list subitem</li>
-                        </ul>
+                        <li>
+                            unsorted list item
+                            <ul>
+                                <li>unsorted list subitem</li>
+                                <li>unsorted list subitem</li>
+                            </ul>
+                        </li>
                         <li>unsorted list item</li>
                     </ul>
                 </p>
@@ -74,11 +84,13 @@
                 <p>
                     <ol>
                         <li>ordered list item</li>
-                        <li>ordered list item</li>
-                        <ol>
-                            <li>ordered list subitem</li>
-                            <li>ordered list subitem</li>
-                        </ol>
+                        <li>
+                            ordered list item
+                            <ol>
+                                <li>ordered list subitem</li>
+                                <li>ordered list subitem</li>
+                            </ol>
+                        </li>
                         <li>ordered list item</li>
                     </ol>
                 </p>

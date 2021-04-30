@@ -13,6 +13,10 @@ describe('vl-textarea', async () => {
     return vlTextareaPage.load();
   });
 
+  it('WCAG', async () => {
+    await assert.eventually.isFalse(vlTextareaPage.hasWcagIssues());
+  });
+
   it('als gebruiker kan ik de tekst van een textarea invullen en lezen en leegmaken', async () => {
     const textarea = await vlTextareaPage.getTextarea();
     await textarea.setValue('Dit is de tekst in de textarea');
