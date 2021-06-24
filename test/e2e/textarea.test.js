@@ -200,8 +200,7 @@ describe('vl-textarea', async () => {
     await assert.eventually.isFalse(textInputField.hasError());
     await assert.eventually.isFalse(linkInputField.hasError());
     await modal.submit();
-    await assert.eventually.isTrue(textInputField.hasError());
-    await assert.eventually.isTrue(linkInputField.hasError());
+    await driver.wait(async () => (await textInputField.hasError()) && (await linkInputField.hasError()));
     await modal.cancel();
   });
 
