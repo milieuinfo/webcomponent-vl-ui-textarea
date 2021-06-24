@@ -190,7 +190,7 @@ describe('vl-textarea', async () => {
   });
 
   it('als gebruiker krijg ik een foutmelding te zien als ik geen geldige tekst of link opgeef bij het toevoegen van een link', async () => {
-    const textarea = await vlTextareaPage.getTextareaRich();
+    const textarea = await vlTextareaPage.getTextareaRichLink();
     await textarea.clear();
     await textarea.addLink();
     const modal = await textarea.getLinkToolbarModal();
