@@ -7,6 +7,7 @@
   <script src="../../../web-component-tester/browser.js"></script>
 
   <script type="module" src="../../src/vl-textarea.js"></script>
+  <script type="module" src="/node_modules/vl-ui-form/dist/vl-form-all.js"></script>
   <script src="/node_modules/sinon/pkg/sinon.js"></script>
   <title>vl-textarea test</title>
 </head>
@@ -28,7 +29,7 @@
 
   <test-fixture id="vl-textarea-form-fixture">
     <template>
-      <form>
+      <form is="vl-form" data-vl-validate>
         <textarea id="textarea" is="vl-textarea"></textarea>
       </form>
     </template>
