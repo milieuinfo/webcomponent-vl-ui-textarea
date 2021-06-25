@@ -197,6 +197,8 @@ describe('vl-textarea', async () => {
     const contentElements = await modal.getContentSlotElements();
     const textInputField = await new VlInputField(driver, await contentElements[0].findElement(By.css('#text')));
     const linkInputField = await new VlInputField(driver, await contentElements[0].findElement(By.css('#url')));
+    await textInputField.clear();
+    await linkInputField.clear();
     await assert.eventually.isFalse(textInputField.hasError());
     await assert.eventually.isFalse(linkInputField.hasError());
     await modal.submit();
