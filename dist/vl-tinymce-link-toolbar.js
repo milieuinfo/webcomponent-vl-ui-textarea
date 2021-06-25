@@ -64,7 +64,7 @@ class VlTextareaModal extends vlElement(HTMLElement) {
         @import '/node_modules/vl-ui-button/dist/style.css';
       </style>
       <vl-modal id="modal-cl" data-vl-title="Link toevoegen">
-        <form is="vl-form" id="link-form" slot="content" data-validate-form>
+        <form is="vl-form" id="link-form" slot="content" data-vl-validate>
           <div is="vl-form-grid" is-stacked>
             <div is="vl-form-column" size="12">
               <label is="vl-form-label" for="text" data-vl-block>Tekst</label>
