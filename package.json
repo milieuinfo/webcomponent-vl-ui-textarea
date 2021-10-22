@@ -37,7 +37,7 @@
     "demo": "http-server"
   },
   "dependencies": {
-    "tinymce": "^5.8.2",
+    "tinymce": "^5.10.0",
     "vl-ui-button": "^5.0.11",
     "vl-ui-core": "^7.2.4",
     "vl-ui-form": "^1.1.3",
