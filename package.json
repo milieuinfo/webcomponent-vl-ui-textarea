@@ -63,7 +63,7 @@
     "@govflanders/vl-ui-core": "^4.1.24",
     "@govflanders/vl-ui-form-message": "^3.12.24",
     "@govflanders/vl-ui-textarea": "^3.12.3",
-    "@govflanders/vl-ui-titles": "^3.12.24",
+    "@govflanders/vl-ui-titles": "^11.0.0",
     "@govflanders/vl-ui-typography": "^3.12.24",
     "@govflanders/vl-ui-util": "^3.12.24",
     "vl-ui-body": "^1.0.8",
